@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agency Mentorship | Build & Scale Your Own AI Agency</title>
+  <meta name="description" content="Learn how to build a profitable AI agency selling websites and automations. Get the course, SOPs, cold calling scripts, templates — everything you need to land clients and scale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Calendly -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0500;
+      --orange:    #FF9900;
+      --orange-lt: #FFB84D;
+      --white:     #ffffff;
+      --border:    rgba(255,255,255,0.05);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33%       { transform: translateY(-18px) rotate(1.5deg); }
+      66%       { transform: translateY(-8px) rotate(-1deg); }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── SCROLL-REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-left.visible, .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 24px 100px;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,153,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,153,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-orb-1 {
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,153,0,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-orb-2 {
+      position: absolute;
+      bottom: -200px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,153,0,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-hex {
+      position: absolute;
+      border: 1px solid rgba(255,153,0,0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-hex-1 { width: 300px; height: 300px; top: 10%; right: 5%; animation: float 9s ease-in-out infinite; }
+    .hero-hex-2 { width: 180px; height: 180px; bottom: 20%; left: 3%; animation: float 12s ease-in-out infinite 2s; }
+    .hero-hex-3 { width: 120px; height: 120px; top: 40%; left: 8%; animation: float 7s ease-in-out infinite 1s; border-color: rgba(255,153,0,0.08); }
+
+    .hero-ring {
+      position: absolute;
+      top: 10%; right: 5%;
+      width: 300px; height: 300px;
+      border: 1px solid transparent;
+      border-top-color: rgba(255,153,0,0.2);
+      border-right-color: rgba(255,153,0,0.1);
+      border-radius: 50%;
+      animation: spin-slow 20s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(255,153,0,0.1);
+      border: 1px solid rgba(255,153,0,0.2);
+      color: var(--orange-lt);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      animation: fade-in 0.8s ease both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s ease infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      animation: fade-up 0.8s ease 0.15s both;
+    }
+    .hero-title-plain { color: var(--white); }
+    .hero-title-gradient {
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 50%, var(--orange) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fade-up 0.8s ease 0.15s both, shimmer 4s linear infinite;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: rgba(255,255,255,0.6);
+      max-width: 640px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+      animation: fade-up 0.8s ease 0.3s both;
+    }
+
+    .hero-cta-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fade-up 0.8s ease 0.45s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 100%);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 24px rgba(255,153,0,0.35);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      transform: scale(1.04) translateY(-1px);
+      box-shadow: 0 8px 32px rgba(255,153,0,0.45);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 32px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,153,0,0.4);
+      color: var(--white);
+      background: rgba(255,153,0,0.05);
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      animation: fade-up 0.8s ease 0.6s both;
+    }
+    .hero-stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--orange-lt);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      margin-top: 5px;
+      letter-spacing: 0.03em;
+    }
+    .hero-stat-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 96px 24px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(255,153,0,0.08);
+      border: 1px solid rgba(255,153,0,0.18);
+      color: var(--orange-lt);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .section-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s ease infinite;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .section-title .grad {
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 50%, var(--orange) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      font-size: 1.08rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    .section-header-center {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-header-center .section-sub { margin: 0 auto; }
+
+    /* ── SERVICES GRID ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.015);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,153,0,0) 0%, rgba(255,153,0,0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .service-card:hover {
+      border-color: rgba(255,153,0,0.28);
+      background: rgba(255,153,0,0.015);
+      transform: translateY(-3px);
+    }
+    .service-card:hover::after { opacity: 1; }
+
+    .service-icon-wrap {
+      display: inline-flex;
+      padding: 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,153,0,0.1) 0%, rgba(255,184,77,0.05) 100%);
+      border: 1px solid rgba(255,153,0,0.18);
+      margin-bottom: 22px;
+      transition: all 0.3s ease;
+    }
+    .service-card:hover .service-icon-wrap {
+      transform: scale(1.08);
+      box-shadow: 0 0 22px rgba(255,153,0,0.2);
+    }
+
+    .service-icon { width: 24px; height: 24px; }
+
+    .service-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+    }
+    .service-card:hover .service-title { color: var(--orange-lt); }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+
+    /* ── CALENDLY ── */
+    .calendly-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .calendly-container { position: relative; }
+    .calendly-glow {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,153,0,0.05), transparent);
+      filter: blur(60px);
+      z-index: -1;
+      opacity: 0.5;
+    }
+    .calendly-widget-wrap {
+      overflow: hidden;
+      border-radius: 20px;
+      min-width: 320px;
+      height: 750px;
+    }
+
+    /* ── DELAY HELPERS ── */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-stat-divider { display: none; }
+      section { padding: 72px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero" style="border-top: none;">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-hex hero-hex-1"></div>
+  <div class="hero-hex hero-hex-2"></div>
+  <div class="hero-hex hero-hex-3"></div>
+  <div class="hero-ring"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      "Build your own dreams, or someone else will hire you to build theirs." — Farrah Gray
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-title-plain">Your Roadmap to Running a<br /></span>
+      <span class="hero-title-gradient">6-Figure AI Agency</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Stop trading time for money. Learn how to build, package, and sell AI services — websites, automations, and AI tools — to businesses desperate for them. We give you everything: the skills, the scripts, the systems, and the clients.
+    </p>
+
+    <div class="hero-cta-wrap">
+      <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth',block:'start'})">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/>
+          <path d="m12 15-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/>
+          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+        </svg>
+        Apply for Mentorship
+      </button>
+      <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth',block:'start'})">
+        See What's Inside
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">£10k+</div>
+        <div class="hero-stat-label">Avg. Monthly Revenue</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div>
+        <div class="hero-stat-num">4 Phases</div>
+        <div class="hero-stat-label">Structured Program</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div>
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Done-For-You Assets</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div>
+        <div class="hero-stat-num">3 Tiers</div>
+        <div class="hero-stat-label">To Fit Every Stage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WHAT YOU GET ═══════════════ -->
+<section id="services" style="scroll-margin-top: 48px;">
+  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:50%;height:100px;background:rgba(255,153,0,0.08);filter:blur(80px);pointer-events:none;"></div>
+
+  <div class="section-inner">
+    <div class="section-header-center reveal">
+      <div class="section-badge">
+        <span class="section-badge-dot"></span>
+        The Full Mentorship
+      </div>
+      <h2 class="section-title">Everything You Need to <span class="grad">Launch & Scale</span></h2>
+      <p class="section-sub">This isn't a course that leaves you guessing. You get the exact playbook — skills, systems, scripts, and support — to go from zero to a fully operational AI agency.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Card 1: Foundation -->
+      <div class="service-card reveal delay-1">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 19.07 6.5 19.07 14.5 12 19 4.93 14.5 4.93 6.5 12 2"/>
+          </svg>
+        </div>
+        <div class="service-title">Phase 1 — Foundation</div>
+        <p class="service-desc">Get crystal clear on your niche, your offer, and your pricing before you speak to a single client. Most agencies fail here — we make sure you don't.</p>
+      </div>
+
+      <!-- Card 2: Delivery -->
+      <div class="service-card reveal delay-2">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FFB84D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <div class="service-title">Phase 2 — Delivery</div>
+        <p class="service-desc">Build stunning websites and powerful automations with a library of templates, blueprints, and SOPs. Deliver fast, charge premium, keep clients happy.</p>
+      </div>
+
+      <!-- Card 3: Acquisition -->
+      <div class="service-card reveal delay-3">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <div class="service-title">Phase 3 — Acquisition</div>
+        <p class="service-desc">Learn exactly how to find, pitch, and close clients. Cold calling scripts, email sequences, DM frameworks — word-for-word, ready to use from day one.</p>
+      </div>
+
+      <!-- Card 4: Operations -->
+      <div class="service-card reveal delay-1">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FFB84D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/>
+            <path d="M18 17V9"/>
+            <path d="M13 17V5"/>
+            <path d="M8 17v-3"/>
+          </svg>
+        </div>
+        <div class="service-title">Phase 4 — Scale</div>
+        <p class="service-desc">Build the systems that let your agency run without you. Retainer models, hiring playbooks, and the operational infrastructure to hit £10k months and beyond.</p>
+      </div>
+
+      <!-- Card 5: Community -->
+      <div class="service-card reveal delay-2">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div class="service-title">Private Community</div>
+        <p class="service-desc">You're not doing this alone. Join a private group of agency owners at every stage — share wins, get feedback, and stay accountable to your goals every week.</p>
+      </div>
+
+      <!-- Card 6: Mentorship -->
+      <div class="service-card reveal delay-3">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="#FFB84D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <div class="service-title">Direct Mentorship</div>
+        <p class="service-desc">Get your questions answered fast. DM access, async Loom feedback on your proposals and outreach, and optional 1:1 strategy sessions to accelerate your growth.</p>
+      </div>
+
+    </div>
+
+    <!-- CALENDLY BOOKING -->
+    <div style="margin-top: 96px;" class="reveal">
+      <div class="calendly-header">
+        <h3 class="section-title" style="font-size:clamp(1.6rem,3.5vw,2.6rem);">Book Your Free <span class="grad">Discovery Call</span></h3>
+        <p class="section-sub" style="margin: 12px auto 0; font-size: 1rem;">Not sure if this is right for you? Let's talk. Pick a time below and we'll map out exactly what your AI agency could look like in 90 days.</p>
+      </div>
+      <div class="calendly-container">
+        <div class="calendly-glow"></div>
+        <div class="calendly-widget-wrap calendly-inline-widget"
+          data-url="https://calendly.com/automateagencies-io/30min?hide_landing_page_details=1&hide_event_type_details=1&background_color=0a0500&text_color=ffffff&primary_color=ff9900">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  /* ── Scroll reveal ── */
+  const revealAll = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '-60px 0px' });
+  revealAll.forEach(el => revealObserver.observe(el));
+
+  /* ── Calendly init (fallback) ── */
+  function tryInitCalendly() {
+    if (window.Calendly) {
+      window.Calendly.initInlineWidget({
+        url: 'https://calendly.com/automateagencies-io/30min?hide_landing_page_details=1&hide_event_type_details=1',
+        parentElement: document.querySelector('.calendly-inline-widget'),
+        prefill: {},
+        utm: {},
+      });
+    } else {
+      setTimeout(tryInitCalendly, 600);
+    }
+  }
+  setTimeout(tryInitCalendly, 500);
+</script>
+</body>
+</html>
