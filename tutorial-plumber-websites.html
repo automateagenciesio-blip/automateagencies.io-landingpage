@@ -1035,8 +1035,8 @@ Use a clean colour scheme. Make every section mobile responsive.</div>
 
             <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4px;">
               <button class="prompt-toggle-link" id="fullprompt-btn" onclick="toggleFullPrompt()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                Show full prompt
+                <svg id="fullprompt-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                <span id="fullprompt-label">Show full prompt</span>
               </button>
             </div>
           </div>
@@ -1204,12 +1204,13 @@ Use a clean colour scheme. Make every section mobile responsive.</div>
   }
 
   function toggleFullPrompt() {
-    const el  = document.getElementById('prompt-full');
-    const btn = document.getElementById('fullprompt-btn');
-    const open = el.classList.toggle('visible');
-    btn.classList.toggle('open', open);
-    btn.querySelector('svg').style.transform = open ? 'rotate(90deg)' : '';
-    btn.childNodes[1].textContent = open ? ' Hide full prompt' : ' Show full prompt';
+    const el    = document.getElementById('prompt-full');
+    const icon  = document.getElementById('fullprompt-icon');
+    const label = document.getElementById('fullprompt-label');
+    const open  = el.classList.toggle('visible');
+    icon.style.transform  = open ? 'rotate(180deg)' : 'rotate(0deg)';
+    label.textContent     = open ? 'Hide full prompt' : 'Show full prompt';
+    recalcAccBody(el);
   }
 
   function recalcAccBody(innerEl) {
