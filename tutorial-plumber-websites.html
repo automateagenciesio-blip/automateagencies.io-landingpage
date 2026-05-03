@@ -234,95 +234,143 @@
       transition: width 1s ease;
     }
 
-    /* Step cards */
+    /* ── ACCORDION STEPS ── */
     .steps-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .step-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      padding: 24px 28px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.015);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.25s ease;
-      cursor: pointer;
+    .acc-item {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
+      overflow: hidden;
+      transition: border-color 0.25s ease;
     }
-    .step-card:hover {
-      border-color: rgba(255,153,0,0.3);
+    .acc-item.completed {
+      border-color: rgba(255,153,0,0.35);
       background: rgba(255,153,0,0.04);
-      transform: translateX(4px);
     }
-    .step-card.completed {
-      border-color: rgba(255,153,0,0.15);
-      background: rgba(255,153,0,0.03);
-    }
-    .step-card.active {
-      border-color: rgba(255,153,0,0.4);
-      background: rgba(255,153,0,0.06);
-      box-shadow: 0 0 0 1px rgba(255,153,0,0.15);
+    .acc-item.open {
+      border-color: rgba(255,153,0,0.25);
     }
 
-    .step-num {
+    /* Coloured left border accent */
+    .acc-item { position: relative; }
+    .acc-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      border-radius: 14px 0 0 14px;
+      background: rgba(255,255,255,0.08);
+      transition: background 0.3s ease;
+    }
+    .acc-item.completed::before { background: var(--orange); }
+    .acc-item.open::before      { background: rgba(255,153,0,0.5); }
+    .acc-item.bonus::before     { background: rgba(255,255,255,0.15); }
+
+    /* Header row */
+    .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 22px 20px 26px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Badge — number or icon */
+    .acc-badge {
       flex-shrink: 0;
-      width: 40px; height: 40px;
+      width: 42px; height: 42px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      border: 2px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.03);
+      border: 2px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.04);
       transition: all 0.25s ease;
     }
-    .step-card.completed .step-num {
-      background: rgba(255,153,0,0.15);
-      border-color: rgba(255,153,0,0.4);
-      color: var(--orange);
-    }
-    .step-card.active .step-num {
-      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+    .acc-item.completed .acc-badge {
       border-color: var(--orange);
-      color: #000;
-    }
-
-    .step-body { flex: 1; }
-    .step-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 4px;
-    }
-    .step-card.active .step-label { color: var(--orange); }
-    .step-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.4;
-    }
-    .step-card.active .step-title { color: var(--white); }
-    .step-card.completed .step-title { color: rgba(255,255,255,0.5); text-decoration: line-through; }
-
-    .step-arrow {
-      flex-shrink: 0;
-      color: rgba(255,255,255,0.15);
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .step-card:hover .step-arrow,
-    .step-card.active .step-arrow {
+      background: rgba(255,153,0,0.15);
       color: var(--orange);
-      transform: translateX(3px);
     }
+    .acc-item.bonus .acc-badge {
+      border-color: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4);
+    }
+
+    .acc-title-wrap { flex: 1; }
+    .acc-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.35;
+    }
+    .acc-item.completed .acc-title { color: var(--orange-lt); }
+
+    .acc-completed-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-top: 3px;
+    }
+
+    /* Right side */
+    .acc-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .acc-count {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+    }
+    .acc-check {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .acc-item.completed .acc-check {
+      border-color: var(--orange);
+      background: rgba(255,153,0,0.15);
+    }
+    .acc-chevron {
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.3s ease, color 0.2s ease;
+    }
+    .acc-item.open .acc-chevron,
+    .acc-item.completed .acc-chevron { color: var(--orange); }
+    .acc-item.open .acc-chevron { transform: rotate(180deg); }
+
+    /* Body */
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .acc-body-inner {
+      padding: 0 26px 24px 84px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    .acc-body-inner p { margin-bottom: 10px; }
+    .acc-body-inner p:last-child { margin-bottom: 0; }
 
     /* CTA */
     .cta-wrap {
@@ -449,60 +497,115 @@
 
   <div class="steps-list">
 
-    <a href="#" class="step-card active">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <div class="step-label">Step 1 · Current</div>
-        <div class="step-title">Understand the Plumber Niche & What They Need</div>
+    <!-- Step 1 — Completed -->
+    <div class="acc-item completed">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="acc-title-wrap">
+          <div class="acc-title">Find a Local Business Opportunity</div>
+          <div class="acc-completed-label">Completed</div>
+        </div>
+        <div class="acc-right">
+          <div class="acc-check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <p>You've already completed this step — great work! You identified a local plumbing business as your target client and confirmed they don't have a professional website.</p>
+        </div>
+      </div>
+    </div>
 
-    <a href="#" class="step-card">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <div class="step-label">Step 2</div>
-        <div class="step-title">Use the AI Master Prompt to Build the Website</div>
+    <!-- Step 2 -->
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-badge">2</div>
+        <div class="acc-title-wrap">
+          <div class="acc-title">Build the Website with AI</div>
+        </div>
+        <div class="acc-right">
+          <span class="acc-count">0/2</span>
+          <div class="acc-check"></div>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <p>Use the AI Master Prompt to generate a full plumber website in minutes. Feed it the business name, location, and services and let Claude do the heavy lifting.</p>
+          <p>Then review the output and make sure the key sections are in place: hero, services, about, contact form, and Google Maps embed.</p>
+        </div>
+      </div>
+    </div>
 
-    <a href="#" class="step-card">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <div class="step-label">Step 3</div>
-        <div class="step-title">Customise the Design, Copy & Branding</div>
+    <!-- Step 3 -->
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-badge">3</div>
+        <div class="acc-title-wrap">
+          <div class="acc-title">Refine the Website</div>
+        </div>
+        <div class="acc-right">
+          <span class="acc-count">0/3</span>
+          <div class="acc-check"></div>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <p>Swap in the business's real logo, colours, and phone number. Update the copy to sound local and trustworthy.</p>
+          <p>Check the site on mobile — most plumber leads come from phones. Fix any layout issues.</p>
+          <p>Add a clear call-to-action button above the fold: "Call Now" or "Get a Free Quote."</p>
+        </div>
+      </div>
+    </div>
 
-    <a href="#" class="step-card">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <div class="step-label">Step 4</div>
-        <div class="step-title">Deploy & Go Live on a Custom Domain</div>
+    <!-- Step 4 -->
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-badge">4</div>
+        <div class="acc-title-wrap">
+          <div class="acc-title">Deploy the Website</div>
+        </div>
+        <div class="acc-right">
+          <span class="acc-count">0/1</span>
+          <div class="acc-check"></div>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <p>Push the site to GitHub and connect it to a custom domain via GitHub Pages or Netlify. Use a domain like <strong style="color:var(--orange-lt)">smithsplumbing.co.uk</strong> to make it feel real and professional before you pitch.</p>
+        </div>
+      </div>
+    </div>
 
-    <a href="#" class="step-card">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <div class="step-label">Step 5</div>
-        <div class="step-title">Pitch & Close the Plumber as a Paying Client</div>
+    <!-- Bonus -->
+    <div class="acc-item bonus">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="acc-title-wrap">
+          <div class="acc-title">Outreach Messages (Bonus)</div>
+        </div>
+        <div class="acc-right">
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <p>Use these ready-made scripts to reach out to the plumber via cold call, text, or email. Show them the live website link immediately — it does the selling for you.</p>
+          <p><strong style="color:var(--orange-lt)">"Hi, I'm a local web designer — I've already built a website for your business. Want to take a look before I offer it to anyone else?"</strong></p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -520,6 +623,26 @@
   </div>
 
 </div>
+
+<script>
+  function toggleAcc(header) {
+    const item = header.parentElement;
+    const body = item.querySelector('.acc-body');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.acc-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.acc-body').style.maxHeight = '0';
+    });
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+</script>
 
 </body>
 </html>
