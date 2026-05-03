@@ -459,6 +459,106 @@
     .prompt-toggle-link svg { transition: transform 0.3s ease; }
     .prompt-toggle-link.open svg { transform: rotate(90deg); }
 
+    /* ── CUSTOMIZE FORM ── */
+    .customize-form {
+      display: none;
+      padding: 0 18px 18px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .customize-form.visible { display: block; }
+
+    .form-section-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin: 18px 0 12px;
+    }
+    .form-section-label:first-child { margin-top: 16px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .form-row.full { grid-template-columns: 1fr; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+    .form-group input,
+    .form-group select {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: rgba(255,153,0,0.4);
+      background: rgba(255,153,0,0.04);
+    }
+    .form-group select option { background: #1a0d00; color: #fff; }
+
+    .select-wrap { position: relative; }
+    .select-wrap select { width: 100%; padding-right: 32px; cursor: pointer; }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid rgba(255,255,255,0.3);
+      pointer-events: none;
+    }
+
+    /* Advanced options */
+    .advanced-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 6px;
+      cursor: pointer;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 8px;
+    }
+    .advanced-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+    }
+    .advanced-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2px;
+    }
+    .advanced-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
     /* Specialized prompts */
     .specialized-wrap {
       margin-top: 12px;
@@ -815,9 +915,125 @@ The website must include:
 Use a clean colour scheme. Make every section mobile responsive.</div>
             <div class="prompt-links">
               <button class="prompt-toggle-link" id="customize-btn" onclick="toggleCustomize()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 Customize Prompt
               </button>
+            </div>
+
+            <!-- Customize Form -->
+            <div class="customize-form" id="customize-form">
+
+              <div class="form-section-label">Basic</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Business Name</label>
+                  <input type="text" id="f-name" placeholder="e.g. Smith's Plumbing" oninput="updatePrompt()" />
+                </div>
+                <div class="form-group">
+                  <label>Business Type</label>
+                  <div class="select-wrap">
+                    <select id="f-type" onchange="updatePrompt()">
+                      <option value="">Choose an option</option>
+                      <option>Plumber</option>
+                      <option>Emergency Plumber</option>
+                      <option>Boiler & Heating</option>
+                      <option>Drainage Specialist</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>City / Area</label>
+                  <input type="text" id="f-city" placeholder="e.g. Manchester" oninput="updatePrompt()" />
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="text" id="f-phone" placeholder="e.g. 0161 123 4567" oninput="updatePrompt()" />
+                </div>
+              </div>
+
+              <div class="form-row full">
+                <div class="form-group">
+                  <label>Google Maps Link</label>
+                  <input type="text" id="f-maps" placeholder="Paste Google Maps URL" oninput="updatePrompt()" />
+                </div>
+              </div>
+
+              <div class="form-section-label">Style</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Brand Style</label>
+                  <div class="select-wrap">
+                    <select id="f-style" onchange="updatePrompt()">
+                      <option value="">Choose an option</option>
+                      <option>Modern & Clean</option>
+                      <option>Bold & Trustworthy</option>
+                      <option>Friendly & Local</option>
+                      <option>Professional & Corporate</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Primary Color</label>
+                  <div class="select-wrap">
+                    <select id="f-color" onchange="updatePrompt()">
+                      <option value="">Choose an option</option>
+                      <option>Blue</option>
+                      <option>Orange</option>
+                      <option>Green</option>
+                      <option>Red</option>
+                      <option>Navy</option>
+                      <option>Black</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row full">
+                <div class="form-group">
+                  <label>Main CTA</label>
+                  <div class="select-wrap">
+                    <select id="f-cta" onchange="updatePrompt()">
+                      <option value="">Choose an option</option>
+                      <option>Call Now</option>
+                      <option>Get a Free Quote</option>
+                      <option>Book Online</option>
+                      <option>Contact Us</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Advanced Options -->
+              <div class="advanced-header" onclick="toggleAdvanced(this)">
+                <div>
+                  <div class="advanced-title">ADVANCED OPTIONS <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:0.75rem;">(Optional)</span></div>
+                  <div class="advanced-sub">Add more details to customize your website further</div>
+                </div>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="advanced-body" id="advanced-body">
+                <div class="form-row full" style="margin-top:12px;">
+                  <div class="form-group">
+                    <label>Services (comma separated)</label>
+                    <input type="text" id="f-services" placeholder="e.g. Leak repairs, boiler servicing, drain unblocking" oninput="updatePrompt()" />
+                  </div>
+                </div>
+                <div class="form-row full">
+                  <div class="form-group">
+                    <label>Unique Selling Point</label>
+                    <input type="text" id="f-usp" placeholder="e.g. 24/7 availability, no call-out fee" oninput="updatePrompt()" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4px;">
               <button class="prompt-toggle-link" id="fullprompt-btn" onclick="toggleFullPrompt()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 Show full prompt
@@ -997,8 +1213,63 @@ Use a clean colour scheme. Make every section mobile responsive.</div>
   }
 
   function toggleCustomize() {
-    const btn = document.getElementById('customize-btn');
-    btn.classList.toggle('open');
+    const form = document.getElementById('customize-form');
+    const btn  = document.getElementById('customize-btn');
+    const open = form.classList.toggle('visible');
+    btn.classList.toggle('open', open);
+    const svg = btn.querySelector('svg polyline');
+    svg && (btn.querySelector('svg').style.transform = open ? 'rotate(0deg)' : '');
+    btn.childNodes[1] && (btn.lastChild.textContent = open ? ' Customize Prompt' : ' Customize Prompt');
+  }
+
+  function toggleAdvanced(header) {
+    const body    = document.getElementById('advanced-body');
+    const chevron = header.querySelector('svg');
+    const isOpen  = body.style.maxHeight && body.style.maxHeight !== '0px';
+    body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  function updatePrompt() {
+    const name     = document.getElementById('f-name').value     || '[BUSINESS NAME]';
+    const type     = document.getElementById('f-type').value     || '[BUSINESS TYPE]';
+    const city     = document.getElementById('f-city').value     || '[CITY/AREA]';
+    const phone    = document.getElementById('f-phone').value    || '[PHONE NUMBER]';
+    const maps     = document.getElementById('f-maps').value     || '[GOOGLE MAPS LINK]';
+    const style    = document.getElementById('f-style').value    || '[BRAND STYLE]';
+    const color    = document.getElementById('f-color').value    || '[PRIMARY COLOR]';
+    const cta      = document.getElementById('f-cta').value      || '[MAIN CTA]';
+    const services = document.getElementById('f-services').value || '[LIST SERVICES]';
+    const usp      = document.getElementById('f-usp').value      || '[UNIQUE SELLING POINT]';
+
+    const generated = `You are an expert local business web designer and conversion-focused landing page specialist.
+
+Build a complete, modern, mobile-first HTML/CSS website for a local ${type} business.
+
+Business details:
+- Business Name: ${name}
+- Location: ${city}
+- Phone: ${phone}
+- Services: ${services}
+- Unique Selling Point: ${usp}
+- Google Maps Link: ${maps}
+
+Design preferences:
+- Brand Style: ${style}
+- Primary Color: ${color}
+- Main CTA Button: ${cta}
+
+The website must include:
+1. A hero section with headline, subheadline, and a "${cta}" CTA button
+2. A services section with icons and short descriptions
+3. An about section with a trust message
+4. A testimonials section with 3 realistic reviews
+5. A contact form with name, phone, and message fields
+6. A footer with phone, address, and copyright
+
+Use a clean ${color.toLowerCase()} colour scheme. Make every section mobile responsive.`;
+
+    document.getElementById('prompt-full').innerText = generated;
   }
 
   function toggleSpecialized(header) {
