@@ -1212,14 +1212,19 @@ Use a clean colour scheme. Make every section mobile responsive.</div>
     btn.childNodes[1].textContent = open ? ' Hide full prompt' : ' Show full prompt';
   }
 
+  function recalcAccBody(innerEl) {
+    let el = innerEl;
+    while (el && !el.classList.contains('acc-body')) el = el.parentElement;
+    // Use a large fixed value so nested dynamic content is never clipped
+    if (el) el.style.maxHeight = '9999px';
+  }
+
   function toggleCustomize() {
     const form = document.getElementById('customize-form');
     const btn  = document.getElementById('customize-btn');
     const open = form.classList.toggle('visible');
     btn.classList.toggle('open', open);
-    const svg = btn.querySelector('svg polyline');
-    svg && (btn.querySelector('svg').style.transform = open ? 'rotate(0deg)' : '');
-    btn.childNodes[1] && (btn.lastChild.textContent = open ? ' Customize Prompt' : ' Customize Prompt');
+    recalcAccBody(form);
   }
 
   function toggleAdvanced(header) {
@@ -1228,6 +1233,7 @@ Use a clean colour scheme. Make every section mobile responsive.</div>
     const isOpen  = body.style.maxHeight && body.style.maxHeight !== '0px';
     body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
     chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+    recalcAccBody(body);
   }
 
   function updatePrompt() {
@@ -1307,7 +1313,7 @@ Use a clean ${color.toLowerCase()} colour scheme. Make every section mobile resp
     // Open clicked if it was closed
     if (!isOpen) {
       item.classList.add('open');
-      body.style.maxHeight = body.scrollHeight + 'px';
+      body.style.maxHeight = '9999px';
     }
   }
 </script>
