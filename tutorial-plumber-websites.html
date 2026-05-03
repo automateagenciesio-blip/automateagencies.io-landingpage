@@ -372,6 +372,152 @@
     .acc-body-inner p { margin-bottom: 10px; }
     .acc-body-inner p:last-child { margin-bottom: 0; }
 
+    /* ── PROMPT CARD ── */
+    .prompt-card {
+      margin-top: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,153,0,0.2);
+      background: rgba(255,153,0,0.04);
+      overflow: hidden;
+    }
+    .prompt-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,153,0,0.1);
+    }
+    .prompt-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--orange-lt);
+    }
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-copy:hover {
+      background: rgba(255,153,0,0.1);
+      border-color: rgba(255,153,0,0.3);
+      color: var(--orange-lt);
+    }
+    .btn-copy.copied {
+      background: rgba(255,153,0,0.15);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .prompt-preview {
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .prompt-full-text {
+      display: none;
+      padding: 0 18px 14px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+    .prompt-full-text.visible { display: block; }
+
+    .prompt-links {
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .prompt-toggle-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--orange);
+      cursor: pointer;
+      transition: gap 0.2s ease;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .prompt-toggle-link:hover { gap: 10px; }
+    .prompt-toggle-link svg { transition: transform 0.3s ease; }
+    .prompt-toggle-link.open svg { transform: rotate(90deg); }
+
+    /* Specialized prompts */
+    .specialized-wrap {
+      margin-top: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
+      overflow: hidden;
+    }
+    .specialized-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      cursor: pointer;
+    }
+    .specialized-header:hover { background: rgba(255,153,0,0.03); }
+    .specialized-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2px;
+    }
+    .specialized-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .specialized-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .specialized-body-inner {
+      padding: 0 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .spec-prompt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .spec-prompt-btn:hover {
+      border-color: rgba(255,153,0,0.25);
+      background: rgba(255,153,0,0.04);
+    }
+    .spec-prompt-btn span {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+    .spec-prompt-btn:hover span { color: var(--orange-lt); }
+
     /* ── CHECKLIST ── */
     .checklist {
       display: flex;
@@ -599,22 +745,113 @@
     </div>
 
     <!-- Step 2 -->
-    <div class="acc-item">
+    <div class="acc-item" id="step-2">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-badge">2</div>
+        <div class="acc-badge" id="step-2-badge">2</div>
         <div class="acc-title-wrap">
           <div class="acc-title">Build the Website with AI</div>
+          <div class="acc-completed-label" id="step-2-label" style="display:none;">Completed</div>
         </div>
         <div class="acc-right">
-          <span class="acc-count">0/2</span>
-          <div class="acc-check"></div>
+          <span class="acc-count" id="step-2-count">0/2</span>
+          <div class="acc-check" id="step-2-check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;" id="step-2-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
       <div class="acc-body">
         <div class="acc-body-inner">
-          <p>Use the AI Master Prompt to generate a full plumber website in minutes. Feed it the business name, location, and services and let Claude do the heavy lifting.</p>
-          <p>Then review the output and make sure the key sections are in place: hero, services, about, contact form, and Google Maps embed.</p>
+
+          <div class="checklist" id="step-2-checklist">
+            <div class="checklist-item" onclick="toggleCheck(this, 'step-2')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label">Use the Master Prompt</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this, 'step-2')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label">Customize it with business details</span>
+            </div>
+          </div>
+
+          <!-- Master Prompt Card -->
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <div class="prompt-card-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Master Prompt
+              </div>
+              <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+            <div class="prompt-preview">
+              You are an expert local business web designer and conversion-focused landing page specialist...
+            </div>
+            <div class="prompt-full-text" id="prompt-full">You are an expert local business web designer and conversion-focused landing page specialist.
+
+Build a complete, modern, mobile-first HTML/CSS website for a local plumbing business.
+
+Business details:
+- Business Name: [BUSINESS NAME]
+- Location: [CITY, REGION]
+- Phone: [PHONE NUMBER]
+- Services: [LIST SERVICES]
+- Tone: trustworthy, professional, local
+
+The website must include:
+1. A hero section with headline, subheadline, and a "Call Now" CTA button
+2. A services section with icons and short descriptions
+3. An about section with a trust message
+4. A testimonials section with 3 fake but realistic reviews
+5. A contact form with name, phone, and message fields
+6. A footer with phone, address, and copyright
+
+Use a clean colour scheme. Make every section mobile responsive.</div>
+            <div class="prompt-links">
+              <button class="prompt-toggle-link" id="customize-btn" onclick="toggleCustomize()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                Customize Prompt
+              </button>
+              <button class="prompt-toggle-link" id="fullprompt-btn" onclick="toggleFullPrompt()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                Show full prompt
+              </button>
+            </div>
+          </div>
+
+          <!-- Specialized Prompts -->
+          <div class="specialized-wrap">
+            <div class="specialized-header" onclick="toggleSpecialized(this)">
+              <div>
+                <div class="specialized-title">Specialized Prompts</div>
+                <div class="specialized-sub">Optional prompts for specific business types</div>
+              </div>
+              <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="specialized-body" id="specialized-body">
+              <div class="specialized-body-inner">
+                <div class="spec-prompt-btn" onclick="copySpecPrompt(this, 'emergency')">
+                  <span>🚨 Emergency Plumber Variant</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </div>
+                <div class="spec-prompt-btn" onclick="copySpecPrompt(this, 'boiler')">
+                  <span>🔧 Boiler & Heating Specialist Variant</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </div>
+                <div class="spec-prompt-btn" onclick="copySpecPrompt(this, 'drainage')">
+                  <span>🚿 Drainage & Unblocking Variant</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -702,32 +939,87 @@
 </div>
 
 <script>
+  const stepNumbers = { 'step-1': '1', 'step-2': '2', 'step-3': '3', 'step-4': '4' };
+
   function toggleCheck(item, stepId) {
     item.classList.toggle('done');
 
     if (stepId) {
-      const checklist = document.getElementById(stepId + '-checklist');
-      const allItems = checklist.querySelectorAll('.checklist-item');
-      const doneItems = checklist.querySelectorAll('.checklist-item.done');
-      const allDone = allItems.length === doneItems.length;
+      const checklist  = document.getElementById(stepId + '-checklist');
+      const allItems   = checklist.querySelectorAll('.checklist-item');
+      const doneItems  = checklist.querySelectorAll('.checklist-item.done');
+      const allDone    = allItems.length === doneItems.length;
+      const num        = stepNumbers[stepId] || '?';
 
       const stepEl    = document.getElementById(stepId);
       const badge     = document.getElementById(stepId + '-badge');
       const label     = document.getElementById(stepId + '-label');
       const checkIcon = document.getElementById(stepId + '-check-icon');
+      const countEl   = document.getElementById(stepId + '-count');
+
+      if (countEl) countEl.textContent = doneItems.length + '/' + allItems.length;
 
       if (allDone) {
         stepEl.classList.add('completed');
         badge.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-        label.style.display = 'block';
-        checkIcon.style.opacity = '1';
+        if (label) label.style.display = 'block';
+        if (checkIcon) checkIcon.style.opacity = '1';
       } else {
         stepEl.classList.remove('completed');
-        badge.innerHTML = '1';
-        label.style.display = 'none';
-        checkIcon.style.opacity = '0';
+        badge.innerHTML = num;
+        if (label) label.style.display = 'none';
+        if (checkIcon) checkIcon.style.opacity = '0';
       }
     }
+  }
+
+  const masterPromptText = document.getElementById('prompt-full')?.innerText || '';
+
+  function copyPrompt() {
+    navigator.clipboard.writeText(masterPromptText).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+      }, 2000);
+    });
+  }
+
+  function toggleFullPrompt() {
+    const el  = document.getElementById('prompt-full');
+    const btn = document.getElementById('fullprompt-btn');
+    const open = el.classList.toggle('visible');
+    btn.classList.toggle('open', open);
+    btn.querySelector('svg').style.transform = open ? 'rotate(90deg)' : '';
+    btn.childNodes[1].textContent = open ? ' Hide full prompt' : ' Show full prompt';
+  }
+
+  function toggleCustomize() {
+    const btn = document.getElementById('customize-btn');
+    btn.classList.toggle('open');
+  }
+
+  function toggleSpecialized(header) {
+    const body    = document.getElementById('specialized-body');
+    const chevron = header.querySelector('.acc-chevron');
+    const isOpen  = body.style.maxHeight && body.style.maxHeight !== '0px';
+    body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  function copySpecPrompt(btn, type) {
+    const prompts = {
+      emergency: 'You are an expert web designer. Build a mobile-first emergency plumber website. Emphasise 24/7 availability, fast response times, and urgent CTAs like "Call Now — We\'re Available 24/7". Include trust signals such as response time guarantees.',
+      boiler: 'You are an expert web designer. Build a mobile-first boiler and heating specialist website. Focus on boiler installation, servicing, and repairs. Include Gas Safe registration trust badge, seasonal offers, and a booking form.',
+      drainage: 'You are an expert web designer. Build a mobile-first drainage and unblocking specialist website. Emphasise fast response, no call-out fee, and before/after results. Include a simple quote request form.'
+    };
+    navigator.clipboard.writeText(prompts[type] || '').then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<span>✅ Copied!</span>';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    });
   }
 
   function toggleAcc(header) {
