@@ -310,11 +310,153 @@
       box-shadow: 0 8px 28px rgba(255,153,0,0.4);
     }
 
+    /* ── GUIDES SECTION ── */
+    .guides-section {
+      padding: 80px 24px 100px;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+
+    .guides-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .guides-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .guides-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(255,153,0,0.08);
+      border: 1px solid rgba(255,153,0,0.18);
+      color: var(--orange-lt);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .guides-label-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s ease infinite;
+    }
+
+    .guides-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .guides-title .grad {
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 50%, var(--orange) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .guide-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .guide-card:hover {
+      border-color: rgba(255,153,0,0.3);
+      background: rgba(255,153,0,0.03);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .guide-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 20px;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-thumb-1 { background: linear-gradient(135deg, #0d0033 0%, #1a0066 50%, #0a1a4d 100%); color: #fff; }
+    .guide-thumb-2 { background: linear-gradient(135deg, #1a0044 0%, #6600cc 50%, #003388 100%); color: #fff; }
+    .guide-thumb-3 { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a0d 50%, #2a1500 100%); color: #FFB84D; }
+    .guide-thumb-4 { background: linear-gradient(135deg, #0a0033 0%, #330066 50%, #1a0044 100%); color: #fff; }
+    .guide-thumb-5 { background: linear-gradient(135deg, #000d1a 0%, #001a33 50%, #00334d 100%); color: #fff; }
+    .guide-thumb-6 { background: linear-gradient(135deg, #0a0033 0%, #1a0066 40%, #330044 100%); color: #fff; }
+
+    .guide-thumb-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--orange);
+      color: #000;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .guide-body {
+      padding: 20px 22px 22px;
+    }
+
+    .guide-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .guide-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--orange);
+      transition: gap 0.2s ease;
+    }
+    .guide-card:hover .guide-link { gap: 10px; }
+
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .guides-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 640px) {
       .continue-card { flex-direction: column; text-align: center; }
       .nav { gap: 6px; padding: 12px 16px; }
       .nav-link { padding: 7px 16px; font-size: 0.88rem; }
+      .guides-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -378,6 +520,121 @@
 
   </div>
 </div>
+
+<!-- ═══════════════ GUIDES GRID ═══════════════ -->
+<section class="guides-section">
+  <div class="guides-inner">
+
+    <div class="guides-header">
+      <div class="guides-label">
+        <span class="guides-label-dot"></span>
+        Step-by-Step Guides
+      </div>
+      <h2 class="guides-title">Browse All <span class="grad">Tutorials</span></h2>
+    </div>
+
+    <div class="guides-grid">
+
+      <!-- Card 1 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-1">
+          <span>Customer Store ⚡ Admin Dashboard</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">Build a Cash-on-Delivery Store + Admin Dashboard</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-2">
+          <span>Rank on Google 🔍 AI Web App</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">Rank Your AI Web App on Google in 4 Simple Steps</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-3">
+          <span>Real Backend ✅ Auth · Database · Storage</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">Build a Full Web App + Backend (Google AI Studio)</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-4">
+          <span>Stripe Subscriptions 💳 + Google</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">Add Stripe Subscriptions to Your AI Web App</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-5">
+          <span>AI Builds Your Website! FREE 🚀</span>
+          <span class="guide-thumb-badge">FREE</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">Build a Full Website With Google AI Studio — No Coding Required</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="#" class="guide-card">
+        <div class="guide-thumb guide-thumb-6">
+          <span>Deploy Google AI 🤖 GitHub · AI Studio</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-title">How to Deploy Google AI Studio Websites & Web Apps</div>
+          <div class="guide-link">
+            Start Guide
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
