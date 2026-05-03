@@ -491,6 +491,25 @@
       font-weight: 600;
       color: rgba(255,255,255,0.6);
     }
+    .form-group textarea {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      width: 100%;
+    }
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group textarea:focus {
+      border-color: rgba(255,153,0,0.4);
+      background: rgba(255,153,0,0.04);
+    }
+
     .form-group input,
     .form-group select {
       padding: 10px 12px;
@@ -997,16 +1016,18 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
               <div class="advanced-body" id="advanced-body">
+
                 <div class="form-row" style="margin-top:12px;">
                   <div class="form-group">
-                    <label>Main Services</label>
-                    <input type="text" id="f-services" placeholder="e.g. Leak repairs, boiler servicing" oninput="updatePrompt()" />
+                    <label>Business Tagline</label>
+                    <input type="text" id="f-tagline" placeholder="e.g. Fast, reliable, local" oninput="updatePrompt()" />
                   </div>
                   <div class="form-group">
-                    <label>Secondary Services</label>
-                    <input type="text" id="f-secondary" placeholder="e.g. Drain unblocking, radiator fitting" oninput="updatePrompt()" />
+                    <label>Full Address</label>
+                    <input type="text" id="f-address" placeholder="e.g. 12 High Street, Manchester, M1 1AB" oninput="updatePrompt()" />
                   </div>
                 </div>
+
                 <div class="form-row">
                   <div class="form-group">
                     <label>WhatsApp Number</label>
@@ -1017,40 +1038,18 @@
                     <input type="text" id="f-email" placeholder="e.g. info@smithsplumbing.co.uk" oninput="updatePrompt()" />
                   </div>
                 </div>
-                <div class="form-row full">
-                  <div class="form-group">
-                    <label>Full Address</label>
-                    <input type="text" id="f-address" placeholder="e.g. 12 High Street, Manchester, M1 1AB" oninput="updatePrompt()" />
-                  </div>
-                </div>
+
                 <div class="form-row">
                   <div class="form-group">
+                    <label>Main Services</label>
+                    <textarea id="f-services" placeholder="e.g. Leak repairs, boiler servicing, drain unblocking" oninput="updatePrompt()" rows="4"></textarea>
+                  </div>
+                  <div class="form-group">
                     <label>Opening Hours</label>
-                    <input type="text" id="f-hours" placeholder="e.g. Mon–Fri 8am–6pm, Sat 9am–2pm" oninput="updatePrompt()" />
-                  </div>
-                  <div class="form-group">
-                    <label>Tagline</label>
-                    <input type="text" id="f-tagline" placeholder="e.g. Fast, reliable, local" oninput="updatePrompt()" />
+                    <textarea id="f-hours" placeholder="e.g. Mon–Fri 8am–6pm&#10;Sat 9am–2pm&#10;Sun Closed" oninput="updatePrompt()" rows="4"></textarea>
                   </div>
                 </div>
-                <div class="form-row full">
-                  <div class="form-group">
-                    <label>Business Description</label>
-                    <input type="text" id="f-desc" placeholder="e.g. Family-run plumber serving Manchester since 2010" oninput="updatePrompt()" />
-                  </div>
-                </div>
-                <div class="form-row full">
-                  <div class="form-group">
-                    <label>Unique Selling Points</label>
-                    <input type="text" id="f-usp" placeholder="e.g. 24/7 availability, no call-out fee, Gas Safe registered" oninput="updatePrompt()" />
-                  </div>
-                </div>
-                <div class="form-row full">
-                  <div class="form-group">
-                    <label>Testimonials / Reviews</label>
-                    <input type="text" id="f-testimonials" placeholder="e.g. 'Great service, fixed our leak same day' — Jane, Manchester" oninput="updatePrompt()" />
-                  </div>
-                </div>
+
                 <div class="form-row">
                   <div class="form-group">
                     <label>Secondary CTA</label>
@@ -1080,6 +1079,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
 
             </div>
@@ -1513,8 +1513,6 @@ Generate the strongest possible version of this website for this exact local bus
       '{{EMAIL_ADDRESS}}':        val('f-email')    || '{{EMAIL_ADDRESS}}',
       '{{GOOGLE_MAPS_LINK}}':     val('f-maps')     || '{{GOOGLE_MAPS_LINK}}',
       '{{MAIN_SERVICES}}':        val('f-services') || '{{MAIN_SERVICES}}',
-      '{{SECONDARY_SERVICES}}':   val('f-secondary')|| '{{SECONDARY_SERVICES}}',
-      '{{UNIQUE_SELLING_POINTS}}':val('f-usp')      || '{{UNIQUE_SELLING_POINTS}}',
       '{{BRAND_STYLE}}':          val('f-style')    || '{{BRAND_STYLE}}',
       '{{PRIMARY_COLOR}}':        val('f-color')    || '{{PRIMARY_COLOR}}',
       '{{SECONDARY_COLOR}}':      val('f-color2')   || '{{SECONDARY_COLOR}}',
@@ -1523,8 +1521,6 @@ Generate the strongest possible version of this website for this exact local bus
       '{{BUSINESS_TAGLINE}}':     val('f-tagline')  || '{{BUSINESS_TAGLINE}}',
       '{{FULL_ADDRESS}}':         val('f-address')  || '{{FULL_ADDRESS}}',
       '{{OPENING_HOURS}}':        val('f-hours')    || '{{OPENING_HOURS}}',
-      '{{BUSINESS_DESCRIPTION}}': val('f-desc')     || '{{BUSINESS_DESCRIPTION}}',
-      '{{TESTIMONIALS}}':         val('f-testimonials') || '{{TESTIMONIALS}}',
     };
 
     let output = masterPromptTemplate;
