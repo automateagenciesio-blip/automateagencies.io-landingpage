@@ -574,6 +574,15 @@
       transition: max-height 0.35s ease;
     }
 
+    /* ── REFINE ITEMS ── */
+    .refine-list { display: flex; flex-direction: column; }
+    .refine-item { display: flex; align-items: center; gap: 14px; }
+    .refine-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
     }
@@ -1174,23 +1183,155 @@ Generate the strongest possible version of this website for this exact local bus
     </div>
 
     <!-- Step 3 -->
-    <div class="acc-item">
+    <div class="acc-item" id="step-3">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-badge">3</div>
+        <div class="acc-badge" id="step-3-badge">3</div>
         <div class="acc-title-wrap">
           <div class="acc-title">Refine the Website</div>
+          <div class="acc-completed-label" id="step-3-label" style="display:none;">Completed</div>
         </div>
         <div class="acc-right">
-          <span class="acc-count">0/3</span>
-          <div class="acc-check"></div>
+          <span class="acc-count" id="step-3-count">0/3</span>
+          <div class="acc-check" id="step-3-check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;" id="step-3-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
       <div class="acc-body">
         <div class="acc-body-inner">
-          <p>Swap in the business's real logo, colours, and phone number. Update the copy to sound local and trustworthy.</p>
-          <p>Check the site on mobile — most plumber leads come from phones. Fix any layout issues.</p>
-          <p>Add a clear call-to-action button above the fold: "Call Now" or "Get a Free Quote."</p>
+          <div class="refine-list" id="step-3-checklist">
+
+            <!-- Refine Item 1 -->
+            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label" style="flex:1;">Add real business images</span>
+              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-1', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-1">
+              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
+                <div class="prompt-card-header">
+                  <div class="prompt-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Add real business images
+                  </div>
+                  <button class="btn-copy" onclick="copyRefinePrompt('refine-1-full', this)">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    Copy
+                  </button>
+                </div>
+                <div class="prompt-preview">You are improving an existing local business website...</div>
+                <div class="prompt-links">
+                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-1-full', this)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                    <span>Show full prompt</span>
+                  </button>
+                </div>
+                <div class="prompt-full-text" id="refine-1-full">You are improving an existing local business website.
+
+The website has already been built. Your job is to enhance it by integrating real business images into the design in a natural, professional way.
+
+TASK
+- Replace any placeholder or generic image areas with the real business images provided.
+- Position images where they have the most visual impact: hero background, about section, service photos, or gallery.
+- Ensure images are properly sized, cropped, and styled to match the existing design.
+- Maintain the overall layout and colour scheme.
+- Do not change the content or structure unless necessary to accommodate the images.
+- Make the result feel like a real, photo-rich local business website.
+
+OUTPUT
+Return the updated full HTML with the images correctly integrated.</div>
+              </div>
+            </div>
+
+            <!-- Refine Item 2 -->
+            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label" style="flex:1;">Add testimonials or reviews (optional)</span>
+              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-2', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-2">
+              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
+                <div class="prompt-card-header">
+                  <div class="prompt-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Add testimonials or reviews (optional)
+                  </div>
+                  <button class="btn-copy" onclick="copyRefinePrompt('refine-2-full', this)">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    Copy
+                  </button>
+                </div>
+                <div class="prompt-preview">Enhance the website by adding a high-quality testimonials section...</div>
+                <div class="prompt-links">
+                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-2-full', this)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                    <span>Show full prompt</span>
+                  </button>
+                </div>
+                <div class="prompt-full-text" id="refine-2-full">Enhance the website by adding a high-quality testimonials section.
+
+TASK
+- Add a dedicated testimonials or reviews section to the existing website.
+- Use only real reviews if provided. If none are provided, create a clean, credibility-focused section instead (e.g. "Why customers choose us").
+- Never invent fake reviews or star ratings.
+- Style the section to match the existing design, colours, and typography.
+- Keep testimonials concise, specific, and believable.
+- Position the section logically — typically after services or before the contact section.
+
+OUTPUT
+Return the updated full HTML with the testimonials section correctly integrated.</div>
+              </div>
+            </div>
+
+            <!-- Refine Item 3 -->
+            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label" style="flex:1;">Make the website look premium</span>
+              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-3', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-3">
+              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
+                <div class="prompt-card-header">
+                  <div class="prompt-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Make the website look premium
+                  </div>
+                  <button class="btn-copy" onclick="copyRefinePrompt('refine-3-full', this)">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    Copy
+                  </button>
+                </div>
+                <div class="prompt-preview">Make the website feel more premium, polished, and visually impressive.</div>
+                <div class="prompt-links">
+                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-3-full', this)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                    <span>Show full prompt</span>
+                  </button>
+                </div>
+                <div class="prompt-full-text" id="refine-3-full">Make the website feel more premium, polished, and visually impressive.
+
+TASK
+- Review the existing website design and elevate it to a premium standard.
+- Improve visual hierarchy, spacing, and typography where needed.
+- Refine colours, gradients, shadows, and button styles to feel high-end.
+- Ensure section transitions and layouts feel intentional and polished.
+- Improve the hero section to feel bold and immediately impactful.
+- Keep all existing content and structure intact — only improve the visual quality.
+- The result should look like a professionally designed agency website, not a template.
+
+OUTPUT
+Return the complete updated HTML with all visual improvements applied.</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -1494,6 +1635,32 @@ Generate the strongest possible version of this website for this exact local bus
     recalcAccBody(body);
   }
 
+
+  function toggleRefine(id, chevron) {
+    const body = document.getElementById(id);
+    const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+    body.style.maxHeight = isOpen ? '0' : '9999px';
+    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  function toggleRefinePrompt(id, btn) {
+    const el   = document.getElementById(id);
+    const icon = btn.querySelector('svg');
+    const lbl  = btn.querySelector('span');
+    const open = el.classList.toggle('visible');
+    icon.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+    lbl.textContent = open ? 'Hide full prompt' : 'Show full prompt';
+  }
+
+  function copyRefinePrompt(id, btn) {
+    const text = document.getElementById(id)?.innerText || '';
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+    });
+  }
 
   function toggleAcc(header) {
     const item = header.parentElement;
