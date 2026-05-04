@@ -1715,7 +1715,7 @@ Generate the strongest possible version of this website for this exact local bus
     const body = document.getElementById(id);
     const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
     body.style.maxHeight = isOpen ? '0' : '9999px';
-    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+    chevron.classList.toggle('open', !isOpen);
   }
 
   function toggleRefinePrompt(id, btn) {
