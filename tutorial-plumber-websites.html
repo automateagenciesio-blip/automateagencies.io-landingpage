@@ -1286,27 +1286,32 @@ Generate the strongest possible version of this website for this exact local bus
                       Copy
                     </button>
                   </div>
-                  <div class="prompt-preview">You are improving an existing local business website...</div>
-                  <div class="prompt-links">
+                  <div class="prompt-links" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <button class="prompt-toggle-link" id="r1-customize-btn" onclick="toggleRefine1Customize()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      Customize Prompt
+                    </button>
+                  </div>
+                  <div class="customize-form" id="r1-customize-form">
+                    <div class="form-section-label" style="margin-top:14px;">Prompt Values</div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label>Hero Image URL</label>
+                        <input type="text" id="r1-hero-url" placeholder="Paste hero image URL here" oninput="updateRefine1()" />
+                      </div>
+                      <div class="form-group">
+                        <label>Gallery Image URLs</label>
+                        <input type="text" id="r1-gallery-urls" placeholder="Paste gallery image URLs here" oninput="updateRefine1()" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05);">
                     <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-1-full', this)">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
                       <span>Show full prompt</span>
                     </button>
                   </div>
-                  <div class="prompt-full-text" id="refine-1-full">You are improving an existing local business website.
-
-The website has already been built. Your job is to enhance it by integrating real business images into the design in a natural, professional way.
-
-TASK
-- Replace any placeholder or generic image areas with the real business images provided.
-- Position images where they have the most visual impact: hero background, about section, service photos, or gallery.
-- Ensure images are properly sized, cropped, and styled to match the existing design.
-- Maintain the overall layout and colour scheme.
-- Do not change the content or structure unless necessary to accommodate the images.
-- Make the result feel like a real, photo-rich local business website.
-
-OUTPUT
-Return the updated full HTML with the images correctly integrated.</div>
+                  <div class="prompt-full-text" id="refine-1-full"></div>
                 </div>
               </div>
             </div>
@@ -1736,6 +1741,57 @@ Generate the strongest possible version of this website for this exact local bus
       setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
     });
   }
+
+  /* ── REFINE 1: Add real business images ── */
+  const refine1Template = `You are improving an existing local business website.
+
+Your task is to replace placeholder visuals with real, high-quality images.
+
+Instructions:
+
+1. Hero Section:
+- If a hero image URL is provided, use it as the main hero background or image
+- If not provided, select a high-quality image that best represents the business
+
+2. Gallery Section:
+- If gallery image URLs are provided, create or update a gallery section using them
+- If not provided, generate a small set (3–6 images) relevant to the business
+
+3. Image Quality & Placement:
+- Ensure all images are visually consistent
+- Match the brand style and layout
+- Optimize spacing, cropping, and responsiveness
+
+Important:
+- Do NOT redesign the entire website
+- Do NOT break the layout
+- Only enhance visuals using better images
+
+Optional Inputs:
+Hero Image URL: {{hero_image_url}}
+Gallery Image URLs: {{gallery_images}}`;
+
+  function updateRefine1() {
+    const heroUrl    = document.getElementById('r1-hero-url')?.value?.trim()    || '{{hero_image_url}}';
+    const galleryUrl = document.getElementById('r1-gallery-urls')?.value?.trim() || '{{gallery_images}}';
+    let output = refine1Template
+      .replaceAll('{{hero_image_url}}', heroUrl)
+      .replaceAll('{{gallery_images}}', galleryUrl);
+    document.getElementById('refine-1-full').innerText = output;
+  }
+
+  function toggleRefine1Customize() {
+    const form = document.getElementById('r1-customize-form');
+    const btn  = document.getElementById('r1-customize-btn');
+    const open = form.classList.toggle('visible');
+    const icon = btn.querySelector('svg');
+    icon.style.transform = open ? 'rotate(180deg)' : '';
+    btn.querySelector('svg + *') // no label span needed — text node handles it
+    recalcAccBody(form);
+  }
+
+  /* initialise refine-1 prompt on load */
+  updateRefine1();
 
   function toggleRefineCheck(rowId, stepId) {
     const row = document.getElementById(rowId);
