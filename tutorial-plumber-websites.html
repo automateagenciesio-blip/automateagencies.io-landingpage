@@ -1340,25 +1340,28 @@ Generate the strongest possible version of this website for this exact local bus
                       Copy
                     </button>
                   </div>
-                  <div class="prompt-preview">Enhance the website by adding a high-quality testimonials section...</div>
-                  <div class="prompt-links">
+                  <div class="prompt-links" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <button class="prompt-toggle-link" id="r2-customize-btn" onclick="toggleRefine2Customize()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      Customize Prompt
+                    </button>
+                  </div>
+                  <div class="customize-form" id="r2-customize-form">
+                    <div class="form-section-label" style="margin-top:14px;">Prompt Values</div>
+                    <div class="form-row full">
+                      <div class="form-group">
+                        <label>Testimonials</label>
+                        <textarea id="r2-testimonials" placeholder="Paste testimonials here" oninput="updateRefine2()" rows="4"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05);">
                     <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-2-full', this)">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
                       <span>Show full prompt</span>
                     </button>
                   </div>
-                  <div class="prompt-full-text" id="refine-2-full">Enhance the website by adding a high-quality testimonials section.
-
-TASK
-- Add a dedicated testimonials or reviews section to the existing website.
-- Use only real reviews if provided. If none are provided, create a clean, credibility-focused section instead (e.g. "Why customers choose us").
-- Never invent fake reviews or star ratings.
-- Style the section to match the existing design, colours, and typography.
-- Keep testimonials concise, specific, and believable.
-- Position the section logically — typically after services or before the contact section.
-
-OUTPUT
-Return the updated full HTML with the testimonials section correctly integrated.</div>
+                  <div class="prompt-full-text" id="refine-2-full"></div>
                 </div>
               </div>
             </div>
@@ -1792,6 +1795,56 @@ Gallery Image URLs: {{gallery_images}}`;
 
   /* initialise refine-1 prompt on load */
   updateRefine1();
+
+  /* ── REFINE 2: Add testimonials or reviews ── */
+  const refine2Template = `Enhance the website by adding a high-quality testimonials section.
+
+Instructions:
+
+1. If testimonials are provided:
+- Use them exactly as given
+- Maintain their original tone and wording
+
+2. If no testimonials are provided:
+- Generate 3–5 realistic testimonials based on the business type
+
+Each testimonial should include:
+- A natural customer name
+- A short, believable review (1–2 sentences)
+- Optional star rating (e.g. ★★★★★)
+
+3. Placement:
+- Insert the testimonials section in a logical position (after services or before contact)
+
+4. Design:
+- Keep it clean and consistent with the website style
+- Avoid overly generic or repetitive text
+
+Important:
+- Do NOT redesign the entire layout
+- Focus on realism and trust
+
+Optional Input:
+Testimonials:
+{{testimonials_list}}`;
+
+  function updateRefine2() {
+    const testimonials = document.getElementById('r2-testimonials')?.value?.trim() || '{{testimonials_list}}';
+    const output = refine2Template.replaceAll('{{testimonials_list}}', testimonials);
+    document.getElementById('refine-2-full').innerText = output;
+  }
+
+  function toggleRefine2Customize() {
+    const form = document.getElementById('r2-customize-form');
+    const btn  = document.getElementById('r2-customize-btn');
+    const open = form.classList.toggle('visible');
+    const icon = btn.querySelector('svg');
+    icon.style.transform = open ? 'rotate(180deg)' : '';
+    recalcAccBody(form);
+  }
+
+  /* initialise refine-2 prompt on load */
+  updateRefine2();
 
   function toggleRefineCheck(rowId, stepId) {
     const row = document.getElementById(rowId);
