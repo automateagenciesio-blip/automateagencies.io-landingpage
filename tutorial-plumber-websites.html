@@ -748,6 +748,65 @@
       box-shadow: 0 8px 28px rgba(255,153,0,0.4);
     }
 
+    /* ── DEPLOY CARD ── */
+    .deploy-card {
+      display: block;
+      margin-top: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      text-decoration: none;
+      overflow: hidden;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .deploy-card:hover {
+      border-color: rgba(255,153,0,0.3);
+      background: rgba(255,153,0,0.04);
+    }
+    .deploy-card-badge {
+      display: inline-block;
+      margin: 14px 16px 0;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: rgba(255,153,0,0.12);
+      border: 1px solid rgba(255,153,0,0.25);
+    }
+    .deploy-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px 16px;
+    }
+    .deploy-card-icon {
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      background: rgba(255,153,0,0.1);
+      border: 1px solid rgba(255,153,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+    }
+    .deploy-card-text { flex: 1; }
+    .deploy-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 3px;
+    }
+    .deploy-card-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .deploy-card-chevron { color: rgba(255,255,255,0.25); flex-shrink: 0; }
+    .deploy-card:hover .deploy-card-chevron { color: var(--orange); }
+
     @media (max-width: 640px) {
       .nav { gap: 6px; padding: 12px 16px; }
       .nav-link { padding: 7px 16px; font-size: 0.88rem; }
@@ -1439,21 +1498,47 @@ The website should feel modern, premium, and highly polished.</div>
     </div>
 
     <!-- Step 4 -->
-    <div class="acc-item">
+    <div class="acc-item" id="step-4">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-badge">4</div>
+        <div class="acc-badge" id="step-4-badge">4</div>
         <div class="acc-title-wrap">
           <div class="acc-title">Deploy the Website</div>
+          <div class="acc-completed-label" id="step-4-label" style="display:none;">Completed</div>
         </div>
         <div class="acc-right">
-          <span class="acc-count">0/1</span>
-          <div class="acc-check"></div>
+          <span class="acc-count" id="step-4-count">0/1</span>
+          <div class="acc-check" id="step-4-check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;" id="step-4-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
       <div class="acc-body">
         <div class="acc-body-inner">
-          <p>Push the site to GitHub and connect it to a custom domain via GitHub Pages or Netlify. Use a domain like <strong style="color:var(--orange-lt)">smithsplumbing.co.uk</strong> to make it feel real and professional before you pitch.</p>
+
+          <div class="checklist" id="step-4-checklist">
+            <div class="checklist-item" onclick="toggleCheck(this, 'step-4')">
+              <div class="check-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="check-label">Get the live website link</span>
+            </div>
+          </div>
+
+          <a href="https://www.hostinger.com/uk/web-apps-hosting?utm_medium=influencer&utm_source=aff137417&utm_campaign=1331&session=1027ca4521b93dde8bbdaaad5c8e9e" target="_blank" class="deploy-card">
+            <div class="deploy-card-badge">Recommended</div>
+            <div class="deploy-card-inner">
+              <div class="deploy-card-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </div>
+              <div class="deploy-card-text">
+                <div class="deploy-card-title">Deploy on Hostinger</div>
+                <div class="deploy-card-sub">Go live in minutes + free business email</div>
+              </div>
+              <svg class="deploy-card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </a>
+
         </div>
       </div>
     </div>
@@ -1500,6 +1585,7 @@ The website should feel modern, premium, and highly polished.</div>
 
 <script>
   const stepNumbers = { 'step-1': '1', 'step-2': '2', 'step-3': '3', 'step-4': '4' };
+
 
   function toggleCheck(item, stepId) {
     item.classList.toggle('done');
