@@ -575,12 +575,72 @@
     }
 
     /* ── REFINE ITEMS ── */
-    .refine-list { display: flex; flex-direction: column; }
-    .refine-item { display: flex; align-items: center; gap: 14px; }
+    .refine-list { display: flex; flex-direction: column; gap: 0; }
+
+    .refine-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: default;
+    }
+    .refine-row:last-of-type { border-bottom: none; }
+
+    .refine-circle {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: rgba(255,255,255,0.03);
+    }
+    .refine-circle svg { opacity: 0; transition: opacity 0.2s ease; }
+    .refine-row.done .refine-circle {
+      background: rgba(255,153,0,0.2);
+      border-color: var(--orange);
+    }
+    .refine-row.done .refine-circle svg { opacity: 1; }
+
+    .refine-title {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.25s ease;
+    }
+    .refine-row.done .refine-title {
+      color: rgba(255,255,255,0.35);
+      text-decoration: line-through;
+    }
+
+    .refine-chevron {
+      flex-shrink: 0;
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.3s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+    .refine-chevron.open { transform: rotate(180deg); color: var(--orange); }
+
     .refine-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
+      transition: max-height 0.4s ease;
+    }
+    .refine-body-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 4px 0 20px 0;
+    }
+    .refine-doc-icon {
+      flex-shrink: 0;
+      margin-top: 16px;
+      color: rgba(255,255,255,0.25);
     }
 
     @media (max-width: 600px) {
@@ -1203,33 +1263,37 @@ Generate the strongest possible version of this website for this exact local bus
           <div class="refine-list" id="step-3-checklist">
 
             <!-- Refine Item 1 -->
-            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
-              <div class="check-circle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div class="refine-row" id="refine-row-1">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-1', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <span class="check-label" style="flex:1;">Add real business images</span>
-              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-1', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+              <span class="refine-title">Add real business images</span>
+              <svg class="refine-chevron open" onclick="toggleRefine('refine-body-1', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="refine-body" id="refine-1">
-              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
-                <div class="prompt-card-header">
-                  <div class="prompt-card-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Add real business images
+            <div class="refine-body" id="refine-body-1" style="max-height:9999px;">
+              <div class="refine-body-inner">
+                <div class="refine-doc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="prompt-card" style="flex:1;">
+                  <div class="prompt-card-header">
+                    <div class="prompt-card-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Add real business images
+                    </div>
+                    <button class="btn-copy" onclick="copyRefinePrompt('refine-1-full', this)">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                      Copy
+                    </button>
                   </div>
-                  <button class="btn-copy" onclick="copyRefinePrompt('refine-1-full', this)">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                    Copy
-                  </button>
-                </div>
-                <div class="prompt-preview">You are improving an existing local business website...</div>
-                <div class="prompt-links">
-                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-1-full', this)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
-                    <span>Show full prompt</span>
-                  </button>
-                </div>
-                <div class="prompt-full-text" id="refine-1-full">You are improving an existing local business website.
+                  <div class="prompt-preview">You are improving an existing local business website...</div>
+                  <div class="prompt-links">
+                    <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-1-full', this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      <span>Show full prompt</span>
+                    </button>
+                  </div>
+                  <div class="prompt-full-text" id="refine-1-full">You are improving an existing local business website.
 
 The website has already been built. Your job is to enhance it by integrating real business images into the design in a natural, professional way.
 
@@ -1243,37 +1307,42 @@ TASK
 
 OUTPUT
 Return the updated full HTML with the images correctly integrated.</div>
+                </div>
               </div>
             </div>
 
             <!-- Refine Item 2 -->
-            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
-              <div class="check-circle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div class="refine-row" id="refine-row-2">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-2', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <span class="check-label" style="flex:1;">Add testimonials or reviews (optional)</span>
-              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-2', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+              <span class="refine-title">Add testimonials or reviews (optional)</span>
+              <svg class="refine-chevron open" onclick="toggleRefine('refine-body-2', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="refine-body" id="refine-2">
-              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
-                <div class="prompt-card-header">
-                  <div class="prompt-card-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Add testimonials or reviews (optional)
+            <div class="refine-body" id="refine-body-2" style="max-height:9999px;">
+              <div class="refine-body-inner">
+                <div class="refine-doc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="prompt-card" style="flex:1;">
+                  <div class="prompt-card-header">
+                    <div class="prompt-card-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Add testimonials or reviews (optional)
+                    </div>
+                    <button class="btn-copy" onclick="copyRefinePrompt('refine-2-full', this)">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                      Copy
+                    </button>
                   </div>
-                  <button class="btn-copy" onclick="copyRefinePrompt('refine-2-full', this)">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                    Copy
-                  </button>
-                </div>
-                <div class="prompt-preview">Enhance the website by adding a high-quality testimonials section...</div>
-                <div class="prompt-links">
-                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-2-full', this)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
-                    <span>Show full prompt</span>
-                  </button>
-                </div>
-                <div class="prompt-full-text" id="refine-2-full">Enhance the website by adding a high-quality testimonials section.
+                  <div class="prompt-preview">Enhance the website by adding a high-quality testimonials section...</div>
+                  <div class="prompt-links">
+                    <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-2-full', this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      <span>Show full prompt</span>
+                    </button>
+                  </div>
+                  <div class="prompt-full-text" id="refine-2-full">Enhance the website by adding a high-quality testimonials section.
 
 TASK
 - Add a dedicated testimonials or reviews section to the existing website.
@@ -1285,37 +1354,42 @@ TASK
 
 OUTPUT
 Return the updated full HTML with the testimonials section correctly integrated.</div>
+                </div>
               </div>
             </div>
 
             <!-- Refine Item 3 -->
-            <div class="refine-item checklist-item" onclick="toggleCheck(this, 'step-3')">
-              <div class="check-circle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div class="refine-row" id="refine-row-3">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-3', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <span class="check-label" style="flex:1;">Make the website look premium</span>
-              <svg class="refine-chevron" onclick="event.stopPropagation(); toggleRefine('refine-3', this)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:rgba(255,255,255,0.3); transition: transform 0.3s ease; cursor:pointer;"><polyline points="6 9 12 15 18 9"/></svg>
+              <span class="refine-title">Make the website look premium</span>
+              <svg class="refine-chevron open" onclick="toggleRefine('refine-body-3', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="refine-body" id="refine-3">
-              <div class="prompt-card" style="margin: 8px 0 12px 42px;">
-                <div class="prompt-card-header">
-                  <div class="prompt-card-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Make the website look premium
+            <div class="refine-body" id="refine-body-3" style="max-height:9999px;">
+              <div class="refine-body-inner">
+                <div class="refine-doc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="prompt-card" style="flex:1;">
+                  <div class="prompt-card-header">
+                    <div class="prompt-card-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Make the website look premium
+                    </div>
+                    <button class="btn-copy" onclick="copyRefinePrompt('refine-3-full', this)">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                      Copy
+                    </button>
                   </div>
-                  <button class="btn-copy" onclick="copyRefinePrompt('refine-3-full', this)">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                    Copy
-                  </button>
-                </div>
-                <div class="prompt-preview">Make the website feel more premium, polished, and visually impressive.</div>
-                <div class="prompt-links">
-                  <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-3-full', this)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
-                    <span>Show full prompt</span>
-                  </button>
-                </div>
-                <div class="prompt-full-text" id="refine-3-full">Make the website feel more premium, polished, and visually impressive.
+                  <div class="prompt-preview">Make the website feel more premium, polished, and visually impressive.</div>
+                  <div class="prompt-links">
+                    <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-3-full', this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      <span>Show full prompt</span>
+                    </button>
+                  </div>
+                  <div class="prompt-full-text" id="refine-3-full">Make the website feel more premium, polished, and visually impressive.
 
 TASK
 - Review the existing website design and elevate it to a premium standard.
@@ -1328,6 +1402,7 @@ TASK
 
 OUTPUT
 Return the complete updated HTML with all visual improvements applied.</div>
+                </div>
               </div>
             </div>
 
@@ -1660,6 +1735,40 @@ Generate the strongest possible version of this website for this exact local bus
       btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
       setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
     });
+  }
+
+  function toggleRefineCheck(rowId, stepId) {
+    const row = document.getElementById(rowId);
+    if (!row) return;
+    row.classList.toggle('done');
+
+    if (stepId) {
+      const checklist = document.getElementById(stepId + '-checklist');
+      const allRows   = checklist.querySelectorAll('.refine-row');
+      const doneRows  = checklist.querySelectorAll('.refine-row.done');
+      const allDone   = allRows.length === doneRows.length;
+      const num       = stepNumbers[stepId] || '?';
+
+      const stepEl    = document.getElementById(stepId);
+      const badge     = document.getElementById(stepId + '-badge');
+      const label     = document.getElementById(stepId + '-label');
+      const checkIcon = document.getElementById(stepId + '-check-icon');
+      const countEl   = document.getElementById(stepId + '-count');
+
+      if (countEl) countEl.textContent = doneRows.length + '/' + allRows.length;
+
+      if (allDone) {
+        stepEl.classList.add('completed');
+        badge.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        if (label) label.style.display = 'block';
+        if (checkIcon) checkIcon.style.opacity = '1';
+      } else {
+        stepEl.classList.remove('completed');
+        badge.innerHTML = num;
+        if (label) label.style.display = 'none';
+        if (checkIcon) checkIcon.style.opacity = '0';
+      }
+    }
   }
 
   function toggleAcc(header) {
