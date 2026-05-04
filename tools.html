@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools | Automate Agencies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0500;
+      --orange:    #FF9900;
+      --orange-lt: #FFB84D;
+      --white:     #ffffff;
+      --border:    rgba(255,255,255,0.05);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 24px;
+      background: rgba(10, 5, 0, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--white);
+      border-color: rgba(255,153,0,0.4);
+      background: rgba(255,153,0,0.06);
+    }
+    .nav-link.active {
+      color: var(--orange-lt);
+      border-color: rgba(255,153,0,0.35);
+      background: rgba(255,153,0,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 140px 24px 80px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,153,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,153,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 30%, transparent 100%);
+    }
+    .hero-orb {
+      position: absolute;
+      top: -150px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,153,0,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 10;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(255,153,0,0.1);
+      border: 1px solid rgba(255,153,0,0.2);
+      color: var(--orange-lt);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: fade-in 0.7s ease 0.1s both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s ease infinite;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      animation: fade-up 0.8s ease 0.15s both;
+    }
+    .grad {
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 50%, var(--orange) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+      animation: fade-up 0.8s ease 0.3s both;
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 24px 100px;
+    }
+
+    /* ── CATEGORY LABEL ── */
+    .category-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .category-section { margin-bottom: 56px; }
+
+    /* ── TOOLS GRID ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* ── TOOL CARD ── */
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
+      padding: 22px;
+      text-decoration: none;
+      color: var(--white);
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card:hover {
+      border-color: rgba(255,153,0,0.3);
+      background: rgba(255,153,0,0.03);
+      transform: translateY(-2px);
+    }
+    .tool-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .tool-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(255,153,0,0.1);
+      border: 1px solid rgba(255,153,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .tool-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tool-tag.free {
+      background: rgba(74,222,128,0.08);
+      color: rgba(74,222,128,0.8);
+      border-color: rgba(74,222,128,0.15);
+    }
+    .tool-tag.paid {
+      background: rgba(255,153,0,0.08);
+      color: var(--orange);
+      border-color: rgba(255,153,0,0.2);
+    }
+    .tool-tag.freemium {
+      background: rgba(139,92,246,0.08);
+      color: rgba(167,139,250,0.9);
+      border-color: rgba(139,92,246,0.2);
+    }
+    .tool-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 6px;
+    }
+    .tool-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .tool-link-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--orange);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .tool-card:hover .tool-link-row {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 900px) {
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .nav { gap: 6px; padding: 12px 16px; }
+      .nav-link { padding: 7px 16px; font-size: 0.88rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav">
+  <a href="index.html" class="nav-link">Monetise</a>
+  <a href="tutorials.html" class="nav-link">Tutorials</a>
+  <a href="tools.html" class="nav-link active">Tools</a>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Curated Resources
+    </div>
+    <h1 class="hero-title">
+      The Best Tools for<br /><span class="grad">Building Your Agency</span>
+    </h1>
+    <p class="hero-subtitle">
+      Every tool we actually use and recommend — for building websites, finding clients, automating workflows, and running your agency.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════ TOOLS ═══════════════ -->
+<div class="content-wrap">
+
+  <!-- AI Website Building -->
+  <div class="category-section">
+    <div class="category-label">AI Website Building</div>
+    <div class="tools-grid">
+
+      <a href="https://chat.openai.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h2"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">ChatGPT</div>
+        <div class="tool-desc">Generate full website code, copy, and structure with a single prompt. The fastest way to build a client-ready site from scratch.</div>
+        <div class="tool-link-row">
+          Visit ChatGPT
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://claude.ai" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Claude</div>
+        <div class="tool-desc">Excellent for writing clean, well-structured HTML and CSS. Great at following detailed prompts and producing polished, client-ready code.</div>
+        <div class="tool-link-row">
+          Visit Claude
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://bolt.new" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Bolt.new</div>
+        <div class="tool-desc">Build and preview full websites live in the browser with AI. No setup required — ideal for quickly generating and iterating on client demos.</div>
+        <div class="tool-link-row">
+          Visit Bolt.new
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Hosting & Deployment -->
+  <div class="category-section">
+    <div class="category-label">Hosting & Deployment</div>
+    <div class="tools-grid">
+
+      <a href="https://www.hostinger.com/uk/web-apps-hosting?utm_medium=influencer&utm_source=aff137417&utm_campaign=1331&session=1027ca4521b93dde8bbdaaad5c8e9e" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span class="tool-tag paid">Paid</span>
+        </div>
+        <div class="tool-name">Hostinger</div>
+        <div class="tool-desc">Go live in minutes with a professional domain and free business email. Our top pick for deploying client websites quickly and affordably.</div>
+        <div class="tool-link-row">
+          Visit Hostinger
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://pages.github.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </div>
+          <span class="tool-tag free">Free</span>
+        </div>
+        <div class="tool-name">GitHub Pages</div>
+        <div class="tool-desc">Host static websites for free directly from a GitHub repo. Perfect for demos and prototypes before handing off to a client on paid hosting.</div>
+        <div class="tool-link-row">
+          Visit GitHub Pages
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://netlify.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </div>
+          <span class="tool-tag free">Free</span>
+        </div>
+        <div class="tool-name">Netlify</div>
+        <div class="tool-desc">Drag and drop a folder to get an instant live URL. One of the fastest ways to show a client a working website without any setup.</div>
+        <div class="tool-link-row">
+          Visit Netlify
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Client Outreach -->
+  <div class="category-section">
+    <div class="category-label">Client Outreach</div>
+    <div class="tools-grid">
+
+      <a href="https://calendly.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Calendly</div>
+        <div class="tool-desc">Let clients book discovery calls without the back-and-forth. Embeds directly into your website and syncs with your calendar automatically.</div>
+        <div class="tool-link-row">
+          Visit Calendly
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://instantly.ai" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span class="tool-tag paid">Paid</span>
+        </div>
+        <div class="tool-name">Instantly.ai</div>
+        <div class="tool-desc">Cold email at scale. Send hundreds of personalised outreach emails per day and book meetings on autopilot using AI-powered sequences.</div>
+        <div class="tool-link-row">
+          Visit Instantly.ai
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://apollo.io" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Apollo.io</div>
+        <div class="tool-desc">Find the contact details of any local business owner. Use it to build targeted lead lists before you reach out with your cold call or email.</div>
+        <div class="tool-link-row">
+          Visit Apollo.io
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Automation -->
+  <div class="category-section">
+    <div class="category-label">Automation</div>
+    <div class="tools-grid">
+
+      <a href="https://make.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Make</div>
+        <div class="tool-desc">Build powerful no-code automation workflows that connect apps, trigger actions, and save hours of manual work. Easier than Zapier for complex flows.</div>
+        <div class="tool-link-row">
+          Visit Make
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://zapier.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="tool-tag freemium">Freemium</span>
+        </div>
+        <div class="tool-name">Zapier</div>
+        <div class="tool-desc">The most widely used automation tool. Connect 6,000+ apps without code. Great for simple, reliable automations your clients can understand.</div>
+        <div class="tool-link-row">
+          Visit Zapier
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://n8n.io" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><line x1="7" y1="12" x2="17" y2="6"/><line x1="7" y1="12" x2="17" y2="18"/></svg>
+          </div>
+          <span class="tool-tag free">Free</span>
+        </div>
+        <div class="tool-name">n8n</div>
+        <div class="tool-desc">Open-source automation with full control. Self-host for free or use their cloud. Perfect for selling custom automation services at a high margin.</div>
+        <div class="tool-link-row">
+          Visit n8n
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
