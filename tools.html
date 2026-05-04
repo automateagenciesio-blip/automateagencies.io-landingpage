@@ -283,6 +283,90 @@
       transform: translateX(0);
     }
 
+    /* ── BLUR / PAYWALL ── */
+    .tool-card {
+      position: relative;
+    }
+    .tool-card-inner {
+      filter: blur(6px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .tool-card-lock {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 14px;
+      background: rgba(10,5,0,0.15);
+      backdrop-filter: blur(0px);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .tool-card:hover .tool-card-lock {
+      opacity: 1;
+    }
+    .tool-card-lock svg {
+      color: var(--orange);
+    }
+    .tool-card-lock span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Paywall banner */
+    .paywall-banner {
+      text-align: center;
+      padding: 48px 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,153,0,0.2);
+      background: rgba(255,153,0,0.04);
+      margin-bottom: 56px;
+    }
+    .paywall-banner svg {
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .paywall-banner h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .paywall-banner p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 420px;
+      margin: 0 auto 24px;
+      line-height: 1.65;
+    }
+    .btn-unlock {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #000;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-lt) 100%);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(255,153,0,0.3);
+    }
+    .btn-unlock:hover {
+      transform: scale(1.04) translateY(-1px);
+      box-shadow: 0 8px 28px rgba(255,153,0,0.4);
+    }
+
     @media (max-width: 900px) {
       .tools-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -323,55 +407,66 @@
 <!-- ═══════════════ TOOLS ═══════════════ -->
 <div class="content-wrap">
 
+  <!-- Paywall Banner -->
+  <div class="paywall-banner">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    <h3>Members Only</h3>
+    <p>The full tools list is available to members. Book a call to get access to every tool, tutorial, and resource we use to run a 6-figure AI agency.</p>
+    <a href="index.html#booking" class="btn-unlock">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Unlock Access
+    </a>
+  </div>
+
   <!-- AI Website Building -->
   <div class="category-section">
     <div class="category-label">AI Website Building</div>
     <div class="tools-grid">
 
-      <a href="https://chat.openai.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h2"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h2"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-desc">Generate full website code, copy, and structure with a single prompt. The fastest way to build a client-ready site from scratch.</div>
         </div>
-        <div class="tool-name">ChatGPT</div>
-        <div class="tool-desc">Generate full website code, copy, and structure with a single prompt. The fastest way to build a client-ready site from scratch.</div>
-        <div class="tool-link-row">
-          Visit ChatGPT
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://claude.ai" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Claude</div>
+          <div class="tool-desc">Excellent for writing clean, well-structured HTML and CSS. Great at following detailed prompts and producing polished, client-ready code.</div>
         </div>
-        <div class="tool-name">Claude</div>
-        <div class="tool-desc">Excellent for writing clean, well-structured HTML and CSS. Great at following detailed prompts and producing polished, client-ready code.</div>
-        <div class="tool-link-row">
-          Visit Claude
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://bolt.new" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Bolt.new</div>
+          <div class="tool-desc">Build and preview full websites live in the browser with AI. No setup required — ideal for quickly generating and iterating on client demos.</div>
         </div>
-        <div class="tool-name">Bolt.new</div>
-        <div class="tool-desc">Build and preview full websites live in the browser with AI. No setup required — ideal for quickly generating and iterating on client demos.</div>
-        <div class="tool-link-row">
-          Visit Bolt.new
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -381,50 +476,50 @@
     <div class="category-label">Hosting & Deployment</div>
     <div class="tools-grid">
 
-      <a href="https://www.hostinger.com/uk/web-apps-hosting?utm_medium=influencer&utm_source=aff137417&utm_campaign=1331&session=1027ca4521b93dde8bbdaaad5c8e9e" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <span class="tool-tag paid">Paid</span>
           </div>
-          <span class="tool-tag paid">Paid</span>
+          <div class="tool-name">Hostinger</div>
+          <div class="tool-desc">Go live in minutes with a professional domain and free business email. Our top pick for deploying client websites quickly and affordably.</div>
         </div>
-        <div class="tool-name">Hostinger</div>
-        <div class="tool-desc">Go live in minutes with a professional domain and free business email. Our top pick for deploying client websites quickly and affordably.</div>
-        <div class="tool-link-row">
-          Visit Hostinger
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://pages.github.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
+            <span class="tool-tag free">Free</span>
           </div>
-          <span class="tool-tag free">Free</span>
+          <div class="tool-name">GitHub Pages</div>
+          <div class="tool-desc">Host static websites for free directly from a GitHub repo. Perfect for demos and prototypes before handing off to a client on paid hosting.</div>
         </div>
-        <div class="tool-name">GitHub Pages</div>
-        <div class="tool-desc">Host static websites for free directly from a GitHub repo. Perfect for demos and prototypes before handing off to a client on paid hosting.</div>
-        <div class="tool-link-row">
-          Visit GitHub Pages
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://netlify.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+            <span class="tool-tag free">Free</span>
           </div>
-          <span class="tool-tag free">Free</span>
+          <div class="tool-name">Netlify</div>
+          <div class="tool-desc">Drag and drop a folder to get an instant live URL. One of the fastest ways to show a client a working website without any setup.</div>
         </div>
-        <div class="tool-name">Netlify</div>
-        <div class="tool-desc">Drag and drop a folder to get an instant live URL. One of the fastest ways to show a client a working website without any setup.</div>
-        <div class="tool-link-row">
-          Visit Netlify
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -434,50 +529,50 @@
     <div class="category-label">Client Outreach</div>
     <div class="tools-grid">
 
-      <a href="https://calendly.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Calendly</div>
+          <div class="tool-desc">Let clients book discovery calls without the back-and-forth. Embeds directly into your website and syncs with your calendar automatically.</div>
         </div>
-        <div class="tool-name">Calendly</div>
-        <div class="tool-desc">Let clients book discovery calls without the back-and-forth. Embeds directly into your website and syncs with your calendar automatically.</div>
-        <div class="tool-link-row">
-          Visit Calendly
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://instantly.ai" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <span class="tool-tag paid">Paid</span>
           </div>
-          <span class="tool-tag paid">Paid</span>
+          <div class="tool-name">Instantly.ai</div>
+          <div class="tool-desc">Cold email at scale. Send hundreds of personalised outreach emails per day and book meetings on autopilot using AI-powered sequences.</div>
         </div>
-        <div class="tool-name">Instantly.ai</div>
-        <div class="tool-desc">Cold email at scale. Send hundreds of personalised outreach emails per day and book meetings on autopilot using AI-powered sequences.</div>
-        <div class="tool-link-row">
-          Visit Instantly.ai
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://apollo.io" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Apollo.io</div>
+          <div class="tool-desc">Find the contact details of any local business owner. Use it to build targeted lead lists before you reach out with your cold call or email.</div>
         </div>
-        <div class="tool-name">Apollo.io</div>
-        <div class="tool-desc">Find the contact details of any local business owner. Use it to build targeted lead lists before you reach out with your cold call or email.</div>
-        <div class="tool-link-row">
-          Visit Apollo.io
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -487,50 +582,50 @@
     <div class="category-label">Automation</div>
     <div class="tools-grid">
 
-      <a href="https://make.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Make</div>
+          <div class="tool-desc">Build powerful no-code automation workflows that connect apps, trigger actions, and save hours of manual work. Easier than Zapier for complex flows.</div>
         </div>
-        <div class="tool-name">Make</div>
-        <div class="tool-desc">Build powerful no-code automation workflows that connect apps, trigger actions, and save hours of manual work. Easier than Zapier for complex flows.</div>
-        <div class="tool-link-row">
-          Visit Make
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://zapier.com" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <span class="tool-tag freemium">Freemium</span>
           </div>
-          <span class="tool-tag freemium">Freemium</span>
+          <div class="tool-name">Zapier</div>
+          <div class="tool-desc">The most widely used automation tool. Connect 6,000+ apps without code. Great for simple, reliable automations your clients can understand.</div>
         </div>
-        <div class="tool-name">Zapier</div>
-        <div class="tool-desc">The most widely used automation tool. Connect 6,000+ apps without code. Great for simple, reliable automations your clients can understand.</div>
-        <div class="tool-link-row">
-          Visit Zapier
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
-      <a href="https://n8n.io" target="_blank" class="tool-card">
-        <div class="tool-card-top">
-          <div class="tool-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><line x1="7" y1="12" x2="17" y2="6"/><line x1="7" y1="12" x2="17" y2="18"/></svg>
+      <div class="tool-card">
+        <div class="tool-card-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Members Only</span>
+        </div>
+        <div class="tool-card-inner">
+          <div class="tool-card-top">
+            <div class="tool-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><line x1="7" y1="12" x2="17" y2="6"/><line x1="7" y1="12" x2="17" y2="18"/></svg></div>
+            <span class="tool-tag free">Free</span>
           </div>
-          <span class="tool-tag free">Free</span>
+          <div class="tool-name">n8n</div>
+          <div class="tool-desc">Open-source automation with full control. Self-host for free or use their cloud. Perfect for selling custom automation services at a high margin.</div>
         </div>
-        <div class="tool-name">n8n</div>
-        <div class="tool-desc">Open-source automation with full control. Self-host for free or use their cloud. Perfect for selling custom automation services at a high margin.</div>
-        <div class="tool-link-row">
-          Visit n8n
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </div>
 
     </div>
   </div>
