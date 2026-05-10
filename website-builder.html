@@ -1524,6 +1524,14 @@ The website should feel modern, premium, and highly polished.</div>
   const stepNumbers = { 'step-1': '1', 'step-2': '2', 'step-3': '3', 'step-4': '4' };
 
 
+  function updateProgressBar() {
+    const total = document.querySelectorAll('.acc-item').length;
+    const done  = document.querySelectorAll('.acc-item.completed').length;
+    const pct   = total > 0 ? (done / total) * 100 : 0;
+    document.getElementById('progress-pct').textContent = done + ' / ' + total + ' completed';
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
   function toggleCheck(item, stepId) {
     item.classList.toggle('done');
 
@@ -1554,6 +1562,8 @@ The website should feel modern, premium, and highly polished.</div>
         if (checkIcon) checkIcon.style.opacity = '0';
       }
     }
+
+    updateProgressBar();
   }
 
   const masterPromptTemplate = `You are an expert local business web designer and conversion-focused landing page specialist.
@@ -1920,6 +1930,8 @@ Testimonials:
         if (checkIcon) checkIcon.style.opacity = '0';
       }
     }
+
+    updateProgressBar();
   }
 
   function toggleAcc(header) {
