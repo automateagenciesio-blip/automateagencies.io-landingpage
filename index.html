@@ -372,32 +372,26 @@
       align-items: flex-start;
     }
 
-    /* swirly connector between items */
-    .roadmap-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      left: 27px;
-      top: 60px;
-      width: 2px;
-      bottom: -40px;
-      background: linear-gradient(to bottom, rgba(255,153,0,0.6) 0%, rgba(255,153,0,0.1) 100%);
-      border-radius: 2px;
-    }
-
     .roadmap-connector {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: -8px;
-      padding: 12px 0 0;
-      padding-left: 6px;
+      gap: 32px;
+      align-items: flex-start;
     }
 
-    .roadmap-connector svg {
-      width: 50px;
-      height: 70px;
-      opacity: 0.45;
+    .roadmap-connector-spine {
+      width: 56px;
       flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .roadmap-connector-spine svg {
+      width: 40px;
+      height: 72px;
+    }
+
+    .roadmap-connector-spacer {
+      flex: 1;
     }
 
     .roadmap-spine {
@@ -767,10 +761,13 @@
 
       <!-- Swirly connector 1→2 -->
       <div class="roadmap-connector">
-        <svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25 0 C45 15, 5 30, 25 45 C45 60, 25 70, 25 70" stroke="url(#grad1)" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" fill="none"/>
-          <defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.8"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.2"/></linearGradient></defs>
-        </svg>
+        <div class="roadmap-connector-spine">
+          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,0 C38,18 2,36 20,54 C30,63 20,72 20,72" stroke="url(#g1)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="roadmap-connector-spacer"></div>
       </div>
 
       <!-- Phase 2 -->
@@ -787,10 +784,13 @@
 
       <!-- Swirly connector 2→3 -->
       <div class="roadmap-connector">
-        <svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25 0 C5 15, 45 30, 25 45 C5 60, 25 70, 25 70" stroke="url(#grad2)" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" fill="none"/>
-          <defs><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.8"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.2"/></linearGradient></defs>
-        </svg>
+        <div class="roadmap-connector-spine">
+          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,0 C2,18 38,36 20,54 C10,63 20,72 20,72" stroke="url(#g2)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="roadmap-connector-spacer"></div>
       </div>
 
       <!-- Phase 3 -->
@@ -807,10 +807,13 @@
 
       <!-- Swirly connector 3→4 -->
       <div class="roadmap-connector">
-        <svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25 0 C45 15, 5 30, 25 45 C45 60, 25 70, 25 70" stroke="url(#grad3)" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" fill="none"/>
-          <defs><linearGradient id="grad3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.8"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.2"/></linearGradient></defs>
-        </svg>
+        <div class="roadmap-connector-spine">
+          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,0 C38,18 2,36 20,54 C30,63 20,72 20,72" stroke="url(#g3)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+            <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="roadmap-connector-spacer"></div>
       </div>
 
       <!-- Phase 4 -->
