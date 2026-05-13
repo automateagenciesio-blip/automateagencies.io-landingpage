@@ -1212,35 +1212,6 @@
                   </div>
                 </div>
 
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Secondary CTA</label>
-                    <div class="select-wrap">
-                      <select id="f-cta2" onchange="updatePrompt()">
-                        <option value="">Choose an option</option>
-                        <option>Learn More</option>
-                        <option>View Services</option>
-                        <option>Get a Free Quote</option>
-                        <option>WhatsApp Us</option>
-                        <option>Contact Us</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>Secondary Color</label>
-                    <div class="select-wrap">
-                      <select id="f-color2" onchange="updatePrompt()">
-                        <option value="">Choose an option</option>
-                        <option>White</option>
-                        <option>Grey</option>
-                        <option>Blue</option>
-                        <option>Orange</option>
-                        <option>Green</option>
-                        <option>Black</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
 
               </div>
 
@@ -1273,10 +1244,8 @@ Google Maps Link: {{GOOGLE_MAPS_LINK}}
 Main Services: {{MAIN_SERVICES}}
 Opening Hours: {{OPENING_HOURS}}
 Main CTA: {{MAIN_CTA}}
-Secondary CTA: {{SECONDARY_CTA}}
 Brand Style: {{BRAND_STYLE}}
 Primary Color: {{PRIMARY_COLOR}}
-Secondary Color: {{SECONDARY_COLOR}}
 
 PRIMARY GOAL
 Make this business look trustworthy, professional, locally relevant, and easy to contact.
@@ -1316,7 +1285,6 @@ BUILD THIS PAGE STRUCTURE
 - Clear, business-specific headline
 - Short supporting copy
 - Primary CTA
-- Secondary CTA
 - Local trust signal if available
 
 2. SERVICES
@@ -1700,10 +1668,8 @@ Google Maps Link: {{GOOGLE_MAPS_LINK}}
 Main Services: {{MAIN_SERVICES}}
 Opening Hours: {{OPENING_HOURS}}
 Main CTA: {{MAIN_CTA}}
-Secondary CTA: {{SECONDARY_CTA}}
 Brand Style: {{BRAND_STYLE}}
 Primary Color: {{PRIMARY_COLOR}}
-Secondary Color: {{SECONDARY_COLOR}}
 
 PRIMARY GOAL
 Make this business look trustworthy, professional, locally relevant, and easy to contact.
@@ -1743,7 +1709,6 @@ BUILD THIS PAGE STRUCTURE
 - Clear, business-specific headline
 - Short supporting copy
 - Primary CTA
-- Secondary CTA
 - Local trust signal if available
 
 2. SERVICES
@@ -1822,9 +1787,7 @@ Generate the strongest possible version of this website for this exact local bus
       '{{MAIN_SERVICES}}':        val('f-services') || '{{MAIN_SERVICES}}',
       '{{BRAND_STYLE}}':          val('f-style')    || '{{BRAND_STYLE}}',
       '{{PRIMARY_COLOR}}':        val('f-color')    || '{{PRIMARY_COLOR}}',
-      '{{SECONDARY_COLOR}}':      val('f-color2')   || '{{SECONDARY_COLOR}}',
       '{{MAIN_CTA}}':             val('f-cta')      || '{{MAIN_CTA}}',
-      '{{SECONDARY_CTA}}':        val('f-cta2')     || '{{SECONDARY_CTA}}',
       '{{BUSINESS_TAGLINE}}':     val('f-tagline')  || '{{BUSINESS_TAGLINE}}',
       '{{FULL_ADDRESS}}':         val('f-address')  || '{{FULL_ADDRESS}}',
       '{{OPENING_HOURS}}':        val('f-hours')    || '{{OPENING_HOURS}}',
