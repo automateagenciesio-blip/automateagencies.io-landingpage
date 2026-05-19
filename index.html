@@ -365,82 +365,61 @@
       margin: 0 auto;
     }
 
-    .roadmap-item {
-      display: flex;
-      gap: 32px;
-      position: relative;
-      align-items: flex-start;
-    }
-
-    .roadmap-connector {
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .roadmap-connector-spine {
-      width: 56px;
-      flex-shrink: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    .roadmap-connector-spine svg {
-      width: 40px;
-      height: 72px;
-    }
-
-    .roadmap-connector-spacer {
-      flex: 1;
-    }
-
-    .roadmap-spine {
+    .roadmap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      flex-shrink: 0;
-      margin-top: 4px;
+      gap: 0;
+    }
+
+    .roadmap-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 620px;
     }
 
     .roadmap-node {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255,153,0,0.18), rgba(255,184,77,0.08));
-      border: 1.5px solid rgba(255,153,0,0.45);
+      background: linear-gradient(135deg, rgba(255,153,0,0.2), rgba(255,184,77,0.08));
+      border: 1.5px solid rgba(255,153,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 0 28px rgba(255,153,0,0.15);
+      transition: all 0.3s ease;
+      margin-bottom: 14px;
       position: relative;
       z-index: 1;
-      box-shadow: 0 0 24px rgba(255,153,0,0.12);
-      transition: all 0.3s ease;
     }
 
     .roadmap-item:hover .roadmap-node {
-      border-color: rgba(255,153,0,0.9);
-      box-shadow: 0 0 32px rgba(255,153,0,0.3);
-      background: linear-gradient(135deg, rgba(255,153,0,0.28), rgba(255,184,77,0.14));
+      border-color: rgba(255,153,0,0.95);
+      box-shadow: 0 0 36px rgba(255,153,0,0.35);
+      background: linear-gradient(135deg, rgba(255,153,0,0.32), rgba(255,184,77,0.16));
     }
 
     .roadmap-node-num {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: var(--orange);
       letter-spacing: 0.05em;
     }
 
     .roadmap-card {
-      flex: 1;
+      width: 100%;
       padding: 28px 32px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.015);
-      margin-bottom: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
     .roadmap-card::before {
@@ -454,8 +433,8 @@
     }
 
     .roadmap-item:hover .roadmap-card {
-      border-color: rgba(255,153,0,0.28);
-      transform: translateX(4px);
+      border-color: rgba(255,153,0,0.3);
+      transform: translateY(-2px);
     }
 
     .roadmap-item:hover .roadmap-card::before { opacity: 1; }
@@ -480,6 +459,21 @@
       font-size: 0.9rem;
       color: rgba(255,255,255,0.55);
       line-height: 1.7;
+    }
+
+    .roadmap-connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .roadmap-connector svg {
+      width: 180px;
+      height: 60px;
+      overflow: visible;
     }
 
     /* keep old classes for Community/Mentorship cards below roadmap */
@@ -749,9 +743,7 @@
 
       <!-- Phase 1 -->
       <div class="roadmap-item reveal">
-        <div class="roadmap-spine">
-          <div class="roadmap-node"><span class="roadmap-node-num">01</span></div>
-        </div>
+        <div class="roadmap-node"><span class="roadmap-node-num">01</span></div>
         <div class="roadmap-card">
           <div class="roadmap-phase-label">Phase 1</div>
           <div class="roadmap-title">Foundation</div>
@@ -759,22 +751,18 @@
         </div>
       </div>
 
-      <!-- Swirly connector 1→2 -->
+      <!-- Squiggly arrow 1→2 (curves right) -->
       <div class="roadmap-connector">
-        <div class="roadmap-connector-spine">
-          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20,0 C38,18 2,36 20,54 C30,63 20,72 20,72" stroke="url(#g1)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
-            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
-          </svg>
-        </div>
-        <div class="roadmap-connector-spacer"></div>
+        <svg viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <path d="M10,30 C40,5 80,55 110,30 C130,15 155,35 168,30" stroke="url(#ra1)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+          <path d="M162,22 L170,30 L162,38" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+          <defs><linearGradient id="ra1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.2"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.9"/></linearGradient></defs>
+        </svg>
       </div>
 
       <!-- Phase 2 -->
       <div class="roadmap-item reveal">
-        <div class="roadmap-spine">
-          <div class="roadmap-node"><span class="roadmap-node-num">02</span></div>
-        </div>
+        <div class="roadmap-node"><span class="roadmap-node-num">02</span></div>
         <div class="roadmap-card">
           <div class="roadmap-phase-label">Phase 2</div>
           <div class="roadmap-title">Acquisition</div>
@@ -782,22 +770,18 @@
         </div>
       </div>
 
-      <!-- Swirly connector 2→3 -->
+      <!-- Squiggly arrow 2→3 (curves left) -->
       <div class="roadmap-connector">
-        <div class="roadmap-connector-spine">
-          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20,0 C2,18 38,36 20,54 C10,63 20,72 20,72" stroke="url(#g2)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
-            <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
-          </svg>
-        </div>
-        <div class="roadmap-connector-spacer"></div>
+        <svg viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <path d="M170,30 C140,5 100,55 70,30 C50,15 25,35 12,30" stroke="url(#ra2)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+          <path d="M18,22 L10,30 L18,38" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+          <defs><linearGradient id="ra2" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.2"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.9"/></linearGradient></defs>
+        </svg>
       </div>
 
       <!-- Phase 3 -->
       <div class="roadmap-item reveal">
-        <div class="roadmap-spine">
-          <div class="roadmap-node"><span class="roadmap-node-num">03</span></div>
-        </div>
+        <div class="roadmap-node"><span class="roadmap-node-num">03</span></div>
         <div class="roadmap-card">
           <div class="roadmap-phase-label">Phase 3</div>
           <div class="roadmap-title">Delivery</div>
@@ -805,22 +789,18 @@
         </div>
       </div>
 
-      <!-- Swirly connector 3→4 -->
+      <!-- Squiggly arrow 3→4 (curves right) -->
       <div class="roadmap-connector">
-        <div class="roadmap-connector-spine">
-          <svg viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20,0 C38,18 2,36 20,54 C30,63 20,72 20,72" stroke="url(#g3)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
-            <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.9"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.15"/></linearGradient></defs>
-          </svg>
-        </div>
-        <div class="roadmap-connector-spacer"></div>
+        <svg viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <path d="M10,30 C40,5 80,55 110,30 C130,15 155,35 168,30" stroke="url(#ra3)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+          <path d="M162,22 L170,30 L162,38" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+          <defs><linearGradient id="ra3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF9900" stop-opacity="0.2"/><stop offset="100%" stop-color="#FF9900" stop-opacity="0.9"/></linearGradient></defs>
+        </svg>
       </div>
 
       <!-- Phase 4 -->
       <div class="roadmap-item reveal">
-        <div class="roadmap-spine">
-          <div class="roadmap-node"><span class="roadmap-node-num">04</span></div>
-        </div>
+        <div class="roadmap-node"><span class="roadmap-node-num">04</span></div>
         <div class="roadmap-card">
           <div class="roadmap-phase-label">Phase 4</div>
           <div class="roadmap-title">Scale</div>
