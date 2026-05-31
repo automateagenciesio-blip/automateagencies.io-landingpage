@@ -1365,7 +1365,7 @@ Generate the strongest possible version of this website for this exact local bus
           <div class="acc-completed-label" id="step-3-label" style="display:none;">Completed</div>
         </div>
         <div class="acc-right">
-          <span class="acc-count" id="step-3-count">0/3</span>
+          <span class="acc-count" id="step-3-count">0/4</span>
           <div class="acc-check" id="step-3-check">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;" id="step-3-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
@@ -1543,6 +1543,70 @@ TYPOGRAPHY:
 
 FINAL RESULT:
 The website should feel modern, premium, and highly polished.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Refine row 4: Make buttons functional -->
+            <div class="refine-row" id="refine-row-4">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-4', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="refine-title">Make buttons functional</span>
+              <svg class="refine-chevron open" onclick="toggleRefine('refine-body-4', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-body-4" style="max-height:9999px;">
+              <div class="refine-body-inner">
+                <div class="refine-doc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="prompt-card" style="flex:1;">
+                  <div class="prompt-card-header">
+                    <div class="prompt-card-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Make buttons functional
+                    </div>
+                    <button class="btn-copy" onclick="copyRefinePrompt('refine-4-full', this)">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                      Copy
+                    </button>
+                  </div>
+                  <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05);">
+                    <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-4-full', this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      <span>Show full prompt</span>
+                    </button>
+                  </div>
+                  <div class="prompt-full-text" id="refine-4-full">Make all buttons and calls-to-action on this website fully functional and correctly linked.
+
+Go through every button, link, and CTA on the page and apply the following rules:
+
+PHONE BUTTONS:
+- Any "Call Us", "Call Now", or phone number button should use: href="tel:+[PHONE_NUMBER]"
+
+WHATSAPP BUTTONS:
+- Any "WhatsApp", "Message Us", or chat button should use: href="https://wa.me/[WHATSAPP_NUMBER]"
+- Include a pre-filled message where appropriate, e.g.: ?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote
+
+EMAIL BUTTONS:
+- Any "Email Us" or contact email button should use: href="mailto:[EMAIL_ADDRESS]"
+
+GOOGLE MAPS / DIRECTIONS:
+- Any "Get Directions", "Find Us", or map button should link to the business Google Maps URL
+
+SCROLL BUTTONS:
+- Any "Learn More", "See Services", or section-jump buttons should smoothly scroll to the correct section using: href="#section-id"
+
+CONTACT FORM:
+- If there is a contact form, ensure the submit button is styled correctly and the form fields have proper name attributes and placeholder text
+
+NAVIGATION LINKS:
+- Ensure all nav links scroll to or link to the correct sections
+
+FINAL CHECK:
+- Remove any placeholder "#" hrefs
+- Make sure no button is dead or non-functional
+- Every CTA should have a clear, working action</div>
                 </div>
               </div>
             </div>
