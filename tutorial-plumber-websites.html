@@ -446,6 +446,100 @@
       border-color: var(--orange);
       color: var(--orange);
     }
+
+    /* ── COPY + OPEN DROPDOWN ── */
+    .copy-dropdown-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: stretch;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: visible;
+      transition: border-color 0.2s ease;
+    }
+    .copy-dropdown-wrap.copied {
+      border-color: var(--orange);
+    }
+    .btn-copy-split {
+      border-radius: 7px 0 0 7px;
+      border: none !important;
+      background: rgba(255,255,255,0.06);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .btn-copy-split:hover {
+      background: rgba(255,153,0,0.1) !important;
+      color: var(--orange-lt) !important;
+    }
+    .copy-dropdown-wrap.copied .btn-copy-split {
+      background: rgba(255,153,0,0.15) !important;
+      color: var(--orange) !important;
+    }
+    .btn-open-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 9px;
+      border-radius: 0 7px 7px 0;
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-left: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-dropdown-wrap.copied .btn-open-chevron {
+      border-left-color: rgba(255,153,0,0.4);
+      background: rgba(255,153,0,0.08);
+      color: var(--orange);
+    }
+    .btn-open-chevron:hover {
+      background: rgba(255,153,0,0.1);
+      color: var(--orange-lt);
+    }
+    .btn-open-chevron svg { transition: transform 0.2s ease; }
+    .btn-open-chevron.open svg { transform: rotate(180deg); }
+    .open-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      background: #1a0d00;
+      border: 1px solid rgba(255,153,0,0.25);
+      border-radius: 10px;
+      padding: 6px;
+      z-index: 200;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .open-dropdown.visible { display: block; }
+    .open-dropdown-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      padding: 6px 10px 4px;
+      text-transform: uppercase;
+    }
+    .open-dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .open-dropdown-item:hover {
+      background: rgba(255,153,0,0.1);
+      color: var(--orange-lt);
+    }
+    .open-dropdown-item svg { opacity: 0.5; flex-shrink: 0; }
+    .open-dropdown-item:hover svg { opacity: 1; }
+
     .prompt-preview {
       padding: 14px 18px;
       font-size: 0.88rem;
@@ -776,6 +870,27 @@
     }
 
     /* ── DEPLOY CARD ── */
+    .mobile-preview-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s ease;
+    }
+    .mobile-preview-btn:hover {
+      background: rgba(255,153,0,0.08);
+      border-color: rgba(255,153,0,0.4);
+      color: var(--orange-lt);
+      gap: 12px;
+    }
+
     .deploy-card {
       display: block;
       margin-top: 16px;
@@ -980,10 +1095,22 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Master Prompt
               </div>
-              <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                Copy
-              </button>
+              <div class="copy-dropdown-wrap">
+                <button class="btn-copy btn-copy-split" id="copy-btn" onclick="copyPrompt()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  Copy
+                </button>
+                <button class="btn-open-chevron" onclick="toggleOpenDropdown(this)">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="open-dropdown">
+                  <div class="open-dropdown-label">Open after copying</div>
+                  <a href="https://aistudio.google.com/welcome" target="_blank" rel="noopener noreferrer" class="open-dropdown-item">
+                    Open Google AI Studio
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="prompt-preview">
               You are an expert local business web designer and conversion-focused landing page specialist...
@@ -1316,7 +1443,7 @@ Generate the strongest possible version of this website for this exact local bus
           <div class="acc-completed-label" id="step-3-label" style="display:none;">Completed</div>
         </div>
         <div class="acc-right">
-          <span class="acc-count" id="step-3-count">0/3</span>
+          <span class="acc-count" id="step-3-count">0/5</span>
           <div class="acc-check" id="step-3-check">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;" id="step-3-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
@@ -1332,7 +1459,7 @@ Generate the strongest possible version of this website for this exact local bus
               <div class="refine-circle" onclick="toggleRefineCheck('refine-row-1', 'step-3')">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <span class="refine-title">Add real business images</span>
+              <span class="refine-title">Improve images and service cards</span>
               <svg class="refine-chevron open" onclick="toggleRefine('refine-body-1', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
             <div class="refine-body" id="refine-body-1" style="max-height:9999px;">
@@ -1344,13 +1471,26 @@ Generate the strongest possible version of this website for this exact local bus
                   <div class="prompt-card-header">
                     <div class="prompt-card-title">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                      Add real business images
+                      Improve images and service cards
                     </div>
-                    <button class="btn-copy" onclick="copyRefinePrompt('refine-1-full', this)">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                      Copy
-                    </button>
+                    <div class="copy-dropdown-wrap">
+                      <button class="btn-copy btn-copy-split" onclick="copyRefinePrompt('refine-1-full', this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy
+                      </button>
+                      <button class="btn-open-chevron" onclick="toggleOpenDropdown(this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="open-dropdown">
+                        <div class="open-dropdown-label">Open after copying</div>
+                        <a href="https://aistudio.google.com/welcome" target="_blank" rel="noopener noreferrer" class="open-dropdown-item">
+                          Open Google AI Studio
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </div>
                   </div>
+                  <div style="padding: 8px 18px 4px; font-size: 0.82rem; color: rgba(255,255,255,0.4);">Upgrade visuals, images, and service cards.</div>
                   <div class="prompt-links" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                     <button class="prompt-toggle-link" id="r1-customize-btn" onclick="toggleRefine1Customize()">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1359,14 +1499,22 @@ Generate the strongest possible version of this website for this exact local bus
                   </div>
                   <div class="customize-form" id="r1-customize-form">
                     <div class="form-section-label" style="margin-top:14px;">Prompt Values</div>
-                    <div class="form-row">
+                    <div class="form-row full">
                       <div class="form-group">
                         <label>Hero Image URL</label>
-                        <input type="text" id="r1-hero-url" placeholder="Paste hero image URL here" oninput="updateRefine1()" />
+                        <input type="text" id="r1-hero-url" placeholder="Paste a direct image URL (e.g. ending in .jpg or .webp)" oninput="updateRefine1()" />
                       </div>
+                    </div>
+                    <div class="form-row full">
                       <div class="form-group">
-                        <label>Gallery Image URLs</label>
-                        <input type="text" id="r1-gallery-urls" placeholder="Paste gallery image URLs here" oninput="updateRefine1()" />
+                        <label>Service / Gallery Image URLs</label>
+                        <textarea id="r1-gallery-urls" placeholder="Paste one URL per line for service or gallery images" oninput="updateRefine1()" rows="3"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-row full">
+                      <div class="form-group">
+                        <label>Optional Image Notes</label>
+                        <textarea id="r1-image-notes" placeholder="e.g. Use the first image for plumbing, second for boiler repair" oninput="updateRefine1()" rows="2"></textarea>
                       </div>
                     </div>
                   </div>
@@ -1400,10 +1548,22 @@ Generate the strongest possible version of this website for this exact local bus
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                       Add testimonials or reviews (optional)
                     </div>
-                    <button class="btn-copy" onclick="copyRefinePrompt('refine-2-full', this)">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                      Copy
-                    </button>
+                    <div class="copy-dropdown-wrap">
+                      <button class="btn-copy btn-copy-split" onclick="copyRefinePrompt('refine-2-full', this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy
+                      </button>
+                      <button class="btn-open-chevron" onclick="toggleOpenDropdown(this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="open-dropdown">
+                        <div class="open-dropdown-label">Open after copying</div>
+                        <a href="https://aistudio.google.com/welcome" target="_blank" rel="noopener noreferrer" class="open-dropdown-item">
+                          Open Google AI Studio
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <div class="prompt-links" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                     <button class="prompt-toggle-link" id="r2-customize-btn" onclick="toggleRefine2Customize()">
@@ -1450,10 +1610,37 @@ Generate the strongest possible version of this website for this exact local bus
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                       Make the website look premium
                     </div>
-                    <button class="btn-copy" onclick="copyRefinePrompt('refine-3-full', this)">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                      Copy
+                    <div class="copy-dropdown-wrap">
+                      <button class="btn-copy btn-copy-split" onclick="copyRefinePrompt('refine-3-full', this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy
+                      </button>
+                      <button class="btn-open-chevron" onclick="toggleOpenDropdown(this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="open-dropdown">
+                        <div class="open-dropdown-label">Open after copying</div>
+                        <a href="https://aistudio.google.com/welcome" target="_blank" rel="noopener noreferrer" class="open-dropdown-item">
+                          Open Google AI Studio
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prompt-links" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <button class="prompt-toggle-link" id="r3-customize-btn" onclick="toggleRefine3Customize()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                      Customize Prompt
                     </button>
+                  </div>
+                  <div class="customize-form" id="r3-customize-form">
+                    <div class="form-section-label" style="margin-top:14px;">Prompt Values</div>
+                    <div class="form-row full">
+                      <div class="form-group">
+                        <label>Design Direction / Notes</label>
+                        <textarea id="r3-design-notes" placeholder="e.g. Dark luxury feel, gold accents, bold typography, upmarket estate agent vibe" oninput="updateRefine3()" rows="3"></textarea>
+                      </div>
+                    </div>
                   </div>
                   <div class="prompt-links" style="border-top: 1px solid rgba(255,255,255,0.05);">
                     <button class="prompt-toggle-link" onclick="toggleRefinePrompt('refine-3-full', this)">
@@ -1461,39 +1648,82 @@ Generate the strongest possible version of this website for this exact local bus
                       <span>Show full prompt</span>
                     </button>
                   </div>
-                  <div class="prompt-full-text" id="refine-3-full">You are a world-class creative director and UI/UX designer.
+                  <div class="prompt-full-text" id="refine-3-full"></div>
+                </div>
+              </div>
+            </div>
 
-Your task is to transform this website into a high-end, visually impressive, and modern experience.
+            <!-- Refine row 4: Preview on mobile -->
+            <div class="refine-row" id="refine-row-4">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-4', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="refine-title">Preview on mobile</span>
+              <svg class="refine-chevron" onclick="toggleRefine('refine-body-4', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-body-4" style="max-height:0;">
+              <div style="padding: 16px 20px 20px;">
+                <a href="https://chromewebstore.google.com/detail/mobile-simulator-responsi/ckejmhbmlajgoklhgbapkiccekfoccmk" target="_blank" rel="noopener noreferrer" class="mobile-preview-btn">
+                  Open Mobile Preview Extension
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
 
-You have full creative freedom.
+            <!-- Refine row 5: Improve mobile layout -->
+            <div class="refine-row" id="refine-row-5">
+              <div class="refine-circle" onclick="toggleRefineCheck('refine-row-5', 'step-3')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="refine-title">Improve mobile layout</span>
+              <svg class="refine-chevron" onclick="toggleRefine('refine-body-5', this)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="refine-body" id="refine-body-5" style="max-height:0;">
+              <div style="padding: 16px 20px 20px;">
+                <div class="prompt-card">
+                  <div class="prompt-card-header">
+                    <span class="prompt-label">Prompt</span>
+                    <div class="copy-dropdown-wrap">
+                      <button class="btn btn-copy btn-copy-split" onclick="copyRefinePrompt('refine-5-full', this)">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy
+                      </button>
+                      <button class="btn btn-open-chevron" onclick="toggleOpenDropdown(this)" aria-label="Open in AI tool">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="open-dropdown">
+                        <a href="https://aistudio.google.com/prompts/new_chat" target="_blank" rel="noopener noreferrer" class="open-dropdown-item">
+                          <img src="https://www.gstatic.com/aistudio/ai_studio_favicon.ico" width="16" height="16" alt="" onerror="this.style.display='none'">
+                          Open in Google AI Studio
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prompt-preview">The mobile layout needs improvement. Review all sections visible on mobile and fix spacing, font sizes, button tap targets, and any overlapping or broken elements. Make sure the hero, nav, service cards, and footer all look clean and professional on small screens.</div>
+                  <div class="show-prompt-toggle" onclick="toggleShowPrompt('refine-5-show', this)">
+                    <svg class="show-prompt-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    Show full prompt
+                  </div>
+                  <div class="show-prompt-body" id="refine-5-show" style="max-height:0; overflow:hidden; transition: max-height 0.35s ease;">
+                    <div class="prompt-full-text" id="refine-5-full">The mobile layout needs improvement. Review the entire website and fix any issues that appear on small screens (mobile phones). Go through each section one by one:
 
-IMPORTANT:
-- Avoid generic or template-like design
-- Do not make small improvements — elevate the entire experience
-- Focus on bold, premium, and visually striking design
+1. Navigation — make sure the nav is clean, the logo is visible, and any menu items are accessible on mobile.
+2. Hero section — check that the headline, subheadline, and CTA button are all readable and well-spaced. Nothing should overflow or be clipped.
+3. Services / feature cards — ensure cards stack vertically and don't overlap. Text should be legible and padding should feel comfortable.
+4. Any image sections — images should be full-width or appropriately sized, not stretched or cropped badly.
+5. Testimonials (if present) — cards should stack cleanly with readable text.
+6. Contact / CTA section — form fields and buttons should be full-width and easy to tap.
+7. Footer — links and text should be readable and not crammed together.
 
-GOAL:
-Make the website feel like it was designed by a top-tier design agency.
+General rules:
+- Font sizes: body text minimum 16px, headings proportionally larger
+- Tap targets: buttons and links at least 44px tall
+- Padding: sections should have at least 24px top/bottom padding on mobile
+- No horizontal scrolling — everything must fit within the viewport width
+- Use media queries (max-width: 768px) for all mobile-specific fixes
 
-DESIGN:
-- Use depth, gradients, lighting, and layered visuals
-- Avoid flat backgrounds
-- Create strong contrast and hierarchy
-
-LAYOUT:
-- Improve spacing and composition
-- Introduce dynamic and non-symmetrical layouts
-
-INTERACTIONS:
-- Add smooth animations and micro-interactions
-- Enhance hover effects and transitions
-
-TYPOGRAPHY:
-- Improve hierarchy and readability
-- Make headings more expressive
-
-FINAL RESULT:
-The website should feel modern, premium, and highly polished.</div>
+Apply all fixes directly to the existing CSS. Do not add unnecessary wrappers or restructure the HTML unless absolutely required.</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1748,14 +1978,38 @@ Generate the strongest possible version of this website for this exact local bus
     document.getElementById('prompt-full').innerText = output;
   }
 
+  function toggleOpenDropdown(chevronBtn) {
+    const wrap     = chevronBtn.closest('.copy-dropdown-wrap');
+    const dropdown = wrap.querySelector('.open-dropdown');
+    const isOpen   = dropdown.classList.contains('visible');
+    document.querySelectorAll('.open-dropdown.visible').forEach(d => {
+      d.classList.remove('visible');
+      d.closest('.copy-dropdown-wrap').querySelector('.btn-open-chevron').classList.remove('open');
+    });
+    if (!isOpen) {
+      dropdown.classList.add('visible');
+      chevronBtn.classList.add('open');
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.copy-dropdown-wrap')) {
+      document.querySelectorAll('.open-dropdown.visible').forEach(d => {
+        d.classList.remove('visible');
+        d.closest('.copy-dropdown-wrap').querySelector('.btn-open-chevron').classList.remove('open');
+      });
+    }
+  });
+
   function copyPrompt() {
     const text = document.getElementById('prompt-full').innerText || masterPromptTemplate;
     navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById('copy-btn');
-      btn.classList.add('copied');
+      const btn     = document.getElementById('copy-btn');
+      const wrapper = btn.closest('.copy-dropdown-wrap');
+      wrapper.classList.add('copied');
       btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
       setTimeout(() => {
-        btn.classList.remove('copied');
+        wrapper.classList.remove('copied');
         btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
       }, 2000);
     });
@@ -1815,48 +2069,103 @@ Generate the strongest possible version of this website for this exact local bus
   function copyRefinePrompt(id, btn) {
     const text = document.getElementById(id)?.innerText || '';
     navigator.clipboard.writeText(text).then(() => {
-      const orig = btn.innerHTML;
-      btn.classList.add('copied');
+      const wrapper = btn.closest('.copy-dropdown-wrap');
+      const orig    = btn.innerHTML;
+      wrapper.classList.add('copied');
       btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+      setTimeout(() => { wrapper.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
     });
   }
 
-  /* ── REFINE 1: Add real business images ── */
-  const refine1Template = `You are improving an existing local business website.
+  /* ── REFINE 1: Improve images and service cards ── */
+  const refine1Template = `You are improving the Google AI Studio local business website.
 
-Your task is to replace placeholder visuals with real, high-quality images.
+Do NOT rebuild the project from scratch.
+Do NOT redesign the entire website.
+Do NOT change the business details.
+Do NOT move business content out of src/config/business.js.
+Do NOT hardcode image URLs, service names, or business text directly inside components.
+Keep the current component structure, styling system, design tokens, and premium design direction.
 
-Instructions:
+Your task is to improve the hero image, service images, and service card presentation so the website feels more premium, more relevant to the business, and more client-ready. This is a focused pass — if an image or card is already strong and appropriate, leave it unchanged.
 
-1. Hero Section:
-- If a hero image URL is provided, use it as the main hero background or image
-- If not provided, select a high-quality image that best represents the business
+Use these image inputs if provided:
 
-2. Gallery Section:
-- If gallery image URLs are provided, create or update a gallery section using them
-- If not provided, generate a small set (3–6 images) relevant to the business
+Hero Image URL:
+{{HERO_IMAGE_URL}}
 
-3. Image Quality & Placement:
-- Ensure all images are visually consistent
-- Match the brand style and layout
-- Optimize spacing, cropping, and responsiveness
+Service / Gallery Image URLs:
+{{SERVICE_IMAGE_URLS}}
 
-Important:
-- Do NOT redesign the entire website
-- Do NOT break the layout
-- Only enhance visuals using better images
+Optional Image Notes:
+{{IMAGE_NOTES}}
 
-Optional Inputs:
-Hero Image URL: {{hero_image_url}}
-Gallery Image URLs: {{gallery_images}}`;
+IMAGE SOURCE RULES
+
+- Each image entry in config should include both the URL and a short descriptive alt text, so components can render proper alt attributes.
+- Use real, working, high-quality remote image URLs that are DIRECT image links (e.g. ending in .jpg / .png / .webp, or the images.unsplash.com/photo-... format). Do not use a webpage URL as an image source.
+- Do not use source.unsplash.com.
+- Do not use gray placeholders, empty image boxes, blank dark rectangles, fake image blocks, or icon-only service cards.
+- For Unsplash URLs, include a sensible width parameter: w=1600 for the hero, w=800 for service cards (format: ?auto=format&fit=crop&w=800&q=80).
+- If you use any image URL you cannot reasonably verify as a working direct image link, note it clearly in your final summary so the user can check it.
+
+WHEN TO REPLACE AN EXISTING IMAGE
+Only replace an image if it is clearly broken, clearly irrelevant to the business, obviously low-quality, a placeholder, or duplicated across cards. Do not replace an image simply because of subjective taste — avoid unnecessary churn.
+
+HERO IMAGE
+If a Hero Image URL is provided:
+
+- Use it as the main hero image with object-fit: cover.
+- Crop and position it professionally so the focal point stays visible across breakpoints.
+- Adjust the overlay only if needed for text readability.
+- Keep hero content intentionally positioned within the layout grid — do not weaken the composition with random centering.
+If no Hero Image URL is provided:
+- Review the current hero image and replace it only per the rule above. Choose a stronger image that matches the business type and brand style.
+
+SERVICE IMAGES AND CARDS
+If Service / Gallery Image URLs are provided:
+
+- Match each image to the most relevant service. Follow the Optional Image Notes if given.
+- If there are more images than services, use the strongest first. If fewer, place provided images where they fit best and source relevant images for the remaining cards.
+If no Service / Gallery Image URLs are provided:
+- Review the current service images and replace only those that meet the replacement rule above. Every service card must have a real, relevant image.
+
+IMAGE TONE CONSISTENCY
+
+- Images across the service grid should feel like one cohesive set — similar lighting, color tone, and style. Avoid mixing, e.g., a bright daylight photo next to a dark moody one.
+
+ELEVATE THE SERVICE CARDS
+Improve the cards so they feel crafted, not like a basic template grid:
+
+- consistent image aspect ratios and clean cropping (object-fit: cover)
+- subtle hover zoom or lift
+- comfortable spacing inside cards
+- clear service titles and short, benefit-focused descriptions
+- restrained shadows and borders, consistent with the existing design tokens
+- consistent card rhythm on desktop, tablet, and mobile
+- loading="lazy" on service/gallery images that sit below the fold
+
+Do not add fake services, fake claims, fake reviews, ratings, awards, statistics, or years of experience. Use only the services and details already in src/config/business.js.
+
+BEFORE FINISHING
+Review the hero and every service card and confirm:
+
+- the hero image feels premium and relevant
+- every service card has a real, relevant image with descriptive alt text
+- no image looks broken, cheap, random, or unrelated
+- images across the service grid feel cohesive in tone
+- service cards look polished on desktop, tablet, and mobile
+
+Then give a short, plain-language summary of what you changed and why. Note any image URL you could not fully verify. If an existing image was already strong, say it was checked and left unchanged.`;
 
   function updateRefine1() {
-    const heroUrl    = document.getElementById('r1-hero-url')?.value?.trim()    || '{{hero_image_url}}';
-    const galleryUrl = document.getElementById('r1-gallery-urls')?.value?.trim() || '{{gallery_images}}';
+    const heroUrl    = document.getElementById('r1-hero-url')?.value?.trim()    || '{{HERO_IMAGE_URL}}';
+    const galleryUrl = document.getElementById('r1-gallery-urls')?.value?.trim() || '{{SERVICE_IMAGE_URLS}}';
+    const imageNotes = document.getElementById('r1-image-notes')?.value?.trim()  || '{{IMAGE_NOTES}}';
     let output = refine1Template
-      .replaceAll('{{hero_image_url}}', heroUrl)
-      .replaceAll('{{gallery_images}}', galleryUrl);
+      .replaceAll('{{HERO_IMAGE_URL}}',     heroUrl)
+      .replaceAll('{{SERVICE_IMAGE_URLS}}', galleryUrl)
+      .replaceAll('{{IMAGE_NOTES}}',        imageNotes);
     document.getElementById('refine-1-full').innerText = output;
   }
 
@@ -1922,6 +2231,129 @@ Testimonials:
 
   /* initialise refine-2 prompt on load */
   updateRefine2();
+
+  /* ── REFINE 3: Make the website look premium ── */
+  const refine3Template = `You are improving the Google AI Studio local business website.
+
+Do NOT rebuild the project from scratch.
+Do NOT redesign the entire website from zero.
+Do NOT change the business details.
+Do NOT hardcode business text, colors, services, or image URLs directly inside components.
+
+Keep the current component structure, styling system, design tokens, and premium design direction.
+
+Your task is to make the existing website feel more premium, refined, intentional, and agency-made.
+
+This is a visual polish pass, not a rebuild.
+
+Use these optional design notes if provided:
+
+Design Direction / Notes:
+{{DESIGN_NOTES}}
+
+If design notes are provided:
+
+- Use them as creative direction.
+- Apply them in a tasteful way.
+- Do not ignore the existing business type, brand style, colors, and structure.
+
+If no design notes are provided:
+
+- Improve the website using the current brand style and business type.
+
+POLISH THE DESIGN
+
+1. Hero section
+- Make the hero feel balanced, confident, and high-end.
+- Improve headline hierarchy, spacing, overlay, button placement, and visual composition.
+- Make sure hero content feels intentionally positioned inside the layout grid.
+- Avoid random centered text over the image.
+- Keep the image visible enough to feel premium, but ensure text stays readable.
+- Do not make the hero feel cramped, empty, or disconnected from the rest of the page.
+
+2. Typography
+- Improve the typography hierarchy across the site.
+- Headings should feel confident and readable.
+- Body text should feel comfortable, not tiny.
+- Keep paragraph line lengths clean and easy to scan.
+- Make labels, buttons, headings, and body copy feel consistent.
+
+3. Layout and spacing
+- Improve section rhythm and vertical spacing.
+- Use consistent max-width, alignment, padding, and whitespace.
+- Remove cramped areas, awkward gaps, and uneven spacing.
+- Make the page feel complete but not bloated.
+- Keep the layout clean and easy to follow.
+
+4. Cards and visual elements
+- Improve service cards, trust cards, testimonial cards, contact cards, and form styling where needed.
+- Make cards feel elevated, not basic.
+- Use restrained shadows, borders, hover states, and image treatment.
+- Keep border radius, spacing, and shadow levels consistent with the design system.
+
+5. Colors and brand feel
+- Use the existing primary and secondary colors with restraint.
+- Make the color palette feel premium and intentional.
+- Avoid overusing accent colors.
+- Avoid cheap gradients, neon effects, glassmorphism, random decorative shapes, or clutter.
+- Make the design feel aligned with the business type and brand style.
+
+6. Copy polish
+- Review visible copy and improve wording only where it feels awkward, generic, or AI-like.
+- Keep copy short, human, specific, and believable.
+- Do not invent fake reviews, fake ratings, awards, statistics, certifications, years of experience, or unsupported claims.
+
+7. Contact and conversion
+- Make the main CTA areas feel clearer and more persuasive.
+- Improve contact section layout if it feels basic or cluttered.
+- Keep phone, WhatsApp, email, directions, and form actions clear and easy to use.
+- Do not make buttons decorative only.
+
+IMPORTANT RULES
+
+- If a section already looks strong and premium, leave it mostly unchanged.
+- Only improve what looks generic, cramped, weak, inconsistent, or unfinished.
+- Do not add unnecessary sections.
+- Do not remove important content.
+- Do not overdesign.
+- Do not make the site look like a generic SaaS landing page.
+- Keep it realistic for a local business.
+
+BEFORE FINISHING
+
+Review the full website from top to bottom.
+
+Confirm:
+
+- the hero feels premium and intentionally composed
+- typography is large, comfortable, and consistent
+- spacing feels generous and controlled
+- cards look elevated, not basic
+- colors feel restrained and professional
+- the page does not look like a generic AI template
+- the website feels ready to show to a real local business owner
+- mobile, tablet, and desktop still look polished
+
+Then give a short, plain-language summary of what you changed and why.
+If some sections were already strong, say they were checked and left unchanged.`;
+
+  function updateRefine3() {
+    const notes  = document.getElementById('r3-design-notes')?.value?.trim() || '{{DESIGN_NOTES}}';
+    const output = refine3Template.replaceAll('{{DESIGN_NOTES}}', notes);
+    document.getElementById('refine-3-full').innerText = output;
+  }
+
+  function toggleRefine3Customize() {
+    const form = document.getElementById('r3-customize-form');
+    const btn  = document.getElementById('r3-customize-btn');
+    const open = form.classList.toggle('visible');
+    const icon = btn.querySelector('svg');
+    icon.style.transform = open ? 'rotate(180deg)' : '';
+    recalcAccBody(form);
+  }
+
+  /* initialise refine-3 prompt on load */
+  updateRefine3();
 
   function toggleRefineCheck(rowId, stepId) {
     const row = document.getElementById(rowId);
